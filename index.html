@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyra Residency – Premium Stay in Coimbatore</title>
+<meta name="description" content="Experience luxury comfort at Lyra Residency, opposite Karpagam University, Eachanari, Coimbatore. Book directly via WhatsApp for exclusive rates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f8f4ee;
+    --warm-white: #fdfaf6;
+    --beige: #e8ddd0;
+    --tan: #c9b89a;
+    --brown: #6b4c32;
+    --dark-brown: #3d2b1a;
+    --gold: #b8975a;
+    --gold-light: #d4b882;
+    --charcoal: #2c2118;
+    --text-body: #4a3728;
+    --shadow: rgba(61,43,26,0.12);
+    --shadow-deep: rgba(61,43,26,0.22);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-body);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(253,250,246,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(184,151,90,0.18);
+    transition: all .3s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--dark-brown);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--brown); text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: #fff;
+    padding: 10px 24px; border-radius: 2px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; transition: background .2s, transform .15s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--brown); transform: translateY(-1px); }
+  .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--brown); transition: .3s; border-radius: 2px; }
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--warm-white); z-index: 998; flex-direction: column;
+    align-items: center; justify-content: center; gap: 36px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400;
+    color: var(--dark-brown); text-decoration: none; letter-spacing: 0.05em;
+  }
+  .mobile-close {
+    position: absolute; top: 22px; right: 5%;
+    font-size: 2rem; color: var(--brown); cursor: pointer; background: none; border: none;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    background: linear-gradient(160deg, #f0e9de 0%, #fdfaf6 55%, #ede4d7 100%);
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: repeating-linear-gradient(45deg, var(--brown) 0, var(--brown) 1px, transparent 0, transparent 50%);
+    background-size: 24px 24px;
+  }
+  .hero-content {
+    flex: 1; display: flex; align-items: center;
+    padding: 120px 5% 60px;
+    gap: 60px;
+  }
+  .hero-left { flex: 1; max-width: 560px; }
+  .hero-eyebrow {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 36px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 300; line-height: 1.12; letter-spacing: -0.01em;
+    color: var(--dark-brown); margin-bottom: 20px;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem; font-weight: 300; line-height: 1.7;
+    color: var(--brown); margin-bottom: 36px; max-width: 420px;
+  }
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px;
+  }
+  .badge {
+    display: flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid var(--beige);
+    border-radius: 40px; padding: 10px 18px;
+    font-size: 0.82rem; font-weight: 500; color: var(--dark-brown);
+    box-shadow: 0 4px 16px var(--shadow);
+    animation: floatBadge 3.5s ease-in-out infinite;
+  }
+  .badge:nth-child(2) { animation-delay: 1.2s; }
+  .badge:nth-child(3) { animation-delay: 2.4s; }
+  @keyframes floatBadge {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  .badge-icon { font-size: 1.2rem; }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--dark-brown); color: #fff;
+    padding: 16px 36px; border-radius: 2px;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; transition: all .25s; position: relative; overflow: hidden;
+  }
+  .hero-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform .35s cubic-bezier(0.4,0,0.2,1); z-index: 0;
+  }
+  .hero-cta:hover::before { transform: scaleX(1); }
+  .hero-cta span, .hero-cta svg { position: relative; z-index: 1; }
+  .hero-right {
+    flex: 1; position: relative; max-width: 520px;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-img-frame {
+    width: 100%; aspect-ratio: 4/5; border-radius: 4px;
+    overflow: hidden; position: relative;
+    box-shadow: 24px 24px 60px var(--shadow-deep);
+  }
+  .hero-img-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 6s ease;
+  }
+  .hero-img-frame:hover img { transform: scale(1.04); }
+  .hero-img-tag {
+    position: absolute; bottom: 24px; left: -20px;
+    background: #fff; padding: 14px 20px; border-radius: 4px;
+    box-shadow: 0 8px 32px var(--shadow-deep);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-img-tag-icon { font-size: 1.8rem; }
+  .hero-img-tag-text { font-size: 0.78rem; color: var(--brown); }
+  .hero-img-tag-text strong { display: block; font-size: 1rem; color: var(--dark-brown); font-weight: 600; }
+
+  /* ── BOOKING FORM ── */
+  .booking-bar {
+    background: var(--dark-brown);
+    padding: 32px 5%;
+    position: relative; z-index: 10;
+  }
+  .booking-bar-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;
+  }
+  .booking-field {
+    flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .booking-field label {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--tan);
+  }
+  .booking-field input, .booking-field select {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: #fff; padding: 12px 14px; border-radius: 2px;
+    font-family: 'Jost', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color .2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .booking-field input:focus, .booking-field select:focus {
+    border-color: var(--gold-light);
+  }
+  .booking-field select option { background: var(--dark-brown); color: #fff; }
+  .booking-submit {
+    background: var(--gold); color: #fff; border: none;
+    padding: 13px 32px; border-radius: 2px; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    transition: background .2s, transform .15s;
+    white-space: nowrap; display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+  .booking-submit:hover { background: #a07a3a; transform: translateY(-2px); }
+
+  /* ── SECTION HEADINGS ── */
+  .section { padding: 90px 5%; }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-eyebrow {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2;
+    color: var(--dark-brown);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-divider {
+    width: 60px; height: 1px; background: var(--tan);
+    margin: 18px auto 0;
+  }
+
+  /* ── AMENITIES ── */
+  .amenities { background: var(--cream); }
+  .amenities-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;
+  }
+  .amenity-card {
+    background: #fff; border-radius: 4px; padding: 36px 28px; text-align: center;
+    box-shadow: 0 4px 20px var(--shadow); border: 1px solid var(--beige);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .amenity-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px var(--shadow-deep); }
+  .amenity-icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .amenity-card h3 { font-size: 1rem; font-weight: 600; color: var(--dark-brown); margin-bottom: 8px; }
+  .amenity-card p { font-size: 0.83rem; color: var(--brown); line-height: 1.6; }
+
+  /* ── LOCATION ── */
+  .location-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .location-items { display: flex; flex-direction: column; gap: 20px; }
+  .loc-item {
+    display: flex; align-items: center; gap: 20px;
+    background: #fff; border-radius: 4px; padding: 22px 24px;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 3px 14px var(--shadow); transition: transform .2s;
+  }
+  .loc-item:hover { transform: translateX(6px); }
+  .loc-icon { font-size: 2rem; flex-shrink: 0; }
+  .loc-item h4 { font-size: 0.88rem; font-weight: 600; color: var(--dark-brown); margin-bottom: 2px; }
+  .loc-item p { font-size: 0.78rem; color: var(--brown); }
+  .loc-time {
+    margin-left: auto; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--gold); background: #fff8ee; padding: 4px 10px; border-radius: 20px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .map-embed { border-radius: 6px; overflow: hidden; box-shadow: 0 12px 48px var(--shadow-deep); }
+  .map-embed iframe { width: 100%; height: 380px; border: none; display: block; }
+
+  /* ── ROOMS ── */
+  .rooms { background: var(--cream); }
+  .rooms-grid {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px;
+  }
+  .room-card {
+    background: #fff; border-radius: 6px; overflow: hidden;
+    box-shadow: 0 6px 30px var(--shadow); transition: transform .28s, box-shadow .28s;
+  }
+  .room-card:hover { transform: translateY(-8px); box-shadow: 0 18px 50px var(--shadow-deep); }
+  .room-img {
+    width: 100%; height: 240px; object-fit: cover; display: block;
+    transition: transform 5s ease;
+  }
+  .room-card:hover .room-img { transform: scale(1.05); }
+  .room-img-wrap { overflow: hidden; position: relative; }
+  .room-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--gold); color: #fff;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .room-body { padding: 28px 28px 32px; }
+  .room-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400; color: var(--dark-brown); margin-bottom: 10px;
+  }
+  .room-features {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+  }
+  .room-feat {
+    font-size: 0.75rem; color: var(--brown); background: var(--cream);
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .room-price-row { display: flex; align-items: center; justify-content: space-between; }
+  .room-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600; color: var(--dark-brown);
+  }
+  .room-price span { font-size: 0.8rem; font-weight: 300; color: var(--brown); font-family: 'Jost', sans-serif; }
+  .room-book {
+    background: var(--dark-brown); color: #fff;
+    padding: 11px 24px; border-radius: 2px; text-decoration: none;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: background .2s, transform .15s; display: inline-block;
+  }
+  .room-book:hover { background: var(--gold); transform: translateY(-2px); }
+
+  /* ── GALLERY ── */
+  .gallery-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 220px);
+    gap: 14px;
+  }
+  .gallery-item {
+    overflow: hidden; border-radius: 4px;
+    box-shadow: 0 4px 18px var(--shadow);
+  }
+  .gallery-item:nth-child(1) { grid-column: 1/6; grid-row: 1/3; }
+  .gallery-item:nth-child(2) { grid-column: 6/9; grid-row: 1/2; }
+  .gallery-item:nth-child(3) { grid-column: 9/13; grid-row: 1/2; }
+  .gallery-item:nth-child(4) { grid-column: 6/10; grid-row: 2/3; }
+  .gallery-item:nth-child(5) { grid-column: 10/13; grid-row: 2/3; }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 5s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.08); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--dark-brown); }
+  .testimonials .section-title { color: var(--cream); }
+  .testimonials .section-eyebrow { color: var(--gold-light); }
+  .testimonials .section-divider { background: var(--gold); }
+  .testi-grid {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+  }
+  .testi-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 36px 28px;
+    transition: background .25s;
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.1); }
+  .testi-stars { color: var(--gold-light); font-size: 1.1rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .testi-text {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.1rem; line-height: 1.7; color: var(--beige); margin-bottom: 24px;
+  }
+  .testi-author { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--gold); display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.1rem; color: #fff; flex-shrink: 0;
+  }
+  .testi-name { font-size: 0.88rem; font-weight: 600; color: var(--cream); }
+  .testi-loc { font-size: 0.75rem; color: var(--tan); }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--cream); }
+  .contact-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  .contact-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 400; color: var(--dark-brown); margin-bottom: 24px;
+  }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px;
+  }
+  .contact-detail-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .contact-detail-text { font-size: 0.88rem; line-height: 1.6; color: var(--brown); }
+  .contact-detail-text strong { display: block; color: var(--dark-brown); margin-bottom: 2px; font-size: 0.9rem; }
+  .contact-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .btn-wa {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #25D366; color: #fff;
+    padding: 13px 26px; border-radius: 2px; text-decoration: none;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: background .2s, transform .15s;
+  }
+  .btn-wa:hover { background: #1da853; transform: translateY(-2px); }
+  .btn-call {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--dark-brown); color: #fff;
+    padding: 13px 26px; border-radius: 2px; text-decoration: none;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: background .2s, transform .15s;
+  }
+  .btn-call:hover { background: var(--brown); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal); color: var(--tan);
+    padding: 48px 5% 28px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600; color: var(--cream); letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 32px; }
+  .footer-links {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    list-style: none; margin-bottom: 32px;
+  }
+  .footer-links a { color: var(--tan); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.08em; transition: color .2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-divider { width: 60px; height: 1px; background: var(--brown); margin: 0 auto 24px; }
+  .footer-copy { font-size: 0.74rem; color: var(--brown); }
+
+  /* ── STICKY WA BUTTON ── */
+  .sticky-wa {
+    position: fixed; bottom: 24px; right: 24px; z-index: 997;
+    background: #25D366; color: #fff; border-radius: 50px;
+    width: 58px; height: 58px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+    text-decoration: none; transition: transform .2s, box-shadow .2s;
+    animation: pulsewa 2.5s infinite;
+  }
+  .sticky-wa:hover { transform: scale(1.1); box-shadow: 0 10px 36px rgba(37,211,102,0.55); }
+  @keyframes pulsewa {
+    0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
+    50% { box-shadow: 0 6px 36px rgba(37,211,102,0.7), 0 0 0 10px rgba(37,211,102,0.08); }
+  }
+  .sticky-wa svg { width: 28px; height: 28px; fill: #fff; }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-content { flex-direction: column; padding-top: 100px; }
+    .hero-right { max-width: 100%; width: 100%; }
+    .hero-img-frame { aspect-ratio: 16/9; }
+    .hero-img-tag { display: none; }
+    .location-grid { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+    .gallery-item { grid-column: auto !important; grid-row: auto !important; height: 200px; }
+    .gallery-item:nth-child(1) { grid-column: 1/-1 !important; height: 260px; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .booking-bar-inner { flex-direction: column; }
+    .booking-field { min-width: 100%; }
+    .booking-submit { width: 100%; justify-content: center; }
+  }
+  @media (max-width: 580px) {
+    .rooms-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 2.2rem; }
+    .section { padding: 64px 5%; }
+    .testi-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Color accent line on scroll */
+  .scroll-line {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--brown));
+    z-index: 9999; width: 0%; transition: width .1s linear;
+  }
+
+
+</style>
+</head>
+<body>
+
+<div class="scroll-line" id="scrollLine"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Lyra <span>Residency</span></a>
+  <ul class="nav-links">
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Book Now</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#amenities" onclick="toggleMenu()">Amenities</a>
+  <a href="#location" onclick="toggleMenu()">Location</a>
+  <a href="#rooms" onclick="toggleMenu()">Rooms</a>
+  <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="#booking" onclick="toggleMenu()" style="color:var(--gold)">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Coimbatore, Tamil Nadu</p>
+      <h1 class="hero-title">
+        Experience <em>Comfort</em><br>at Lyra Residency
+      </h1>
+      <p class="hero-sub">Premium Stay Opposite Karpagam University on Salem–Kochi NH — where modern luxury meets warm hospitality in the heart of Eachanari.</p>
+      <div class="hero-badges">
+        <div class="badge"><span class="badge-icon">🛏️</span> Floating Bed Experience</div>
+	<div class="badge"><span class="badge-icon">❄️</span> Ac Rooms</div>
+        <div class="badge"><span class="badge-icon">💆</span> Free Massage Chair</div>
+        <div class="badge"><span class="badge-icon">🚿</span> Rain Shower Bath</div>
+	<div class="badge"><span class="badge-icon">♨️</span> 24x7 Hot Water</div>
+        <div class="badge"><span class="badge-icon">🛗</span> Lift/Elevator Access</div>
+      </div>
+      <a href="#booking" class="hero-cta">
+        <span>Check Availability</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-frame">
+        <img src="Main Foto.jpg" alt="Lyra Residency Luxury Room" loading="eager">
+      </div>
+      <div class="hero-img-tag">
+        <span class="hero-img-tag-icon">⭐</span>
+        <div class="hero-img-tag-text">
+          <strong>Premium Comfort</strong>
+          Boutique Luxury Stay
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING BAR -->
+<section class="booking-bar" id="booking">
+  <div class="booking-bar-inner">
+    <div class="booking-field">
+      <label for="checkin">Check-in</label>
+      <input type="date" id="checkin" name="checkin">
+    </div>
+    <div class="booking-field">
+      <label for="checkout">Check-out</label>
+      <input type="date" id="checkout" name="checkout">
+    </div>
+    <div class="booking-field">
+      <label for="adults">Adults</label>
+      <select id="adults" name="adults">
+        <option>1 Adult</option>
+        <option selected>2 Adults</option>
+        <option>3 Adults</option>
+        <option>4 Adults</option>
+      </select>
+    </div>
+    <div class="booking-field">
+      <label for="roomtype">Room Type</label>
+      <select id="roomtype" name="roomtype">
+	<option value="AC Double Room (₹2200/night)">AC Double — ₹2200</option>
+        <option value="Non-AC Double Room (₹1750/night)">Non-AC Double — ₹1750</option>
+      </select>
+    </div>
+    <button class="booking-submit" onclick="bookOnWhatsApp()">
+      <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2C8.28 2 2 8.28 2 16c0 2.72.74 5.27 2.03 7.47L2 30l6.72-2.03A13.92 13.92 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2Zm7.19 19.44c-.3.85-1.76 1.62-2.44 1.72-.65.1-1.47.14-2.37-.15-.55-.17-1.25-.4-2.15-.78-3.78-1.64-6.24-5.46-6.43-5.71-.19-.25-1.53-2.04-1.53-3.89 0-1.85.97-2.76 1.31-3.14.34-.38.74-.48 1-.48.26 0 .51.01.73.02.24.01.55-.09.86.66.32.77 1.09 2.66 1.19 2.85.1.2.16.43.03.69-.13.26-.2.42-.39.65-.2.23-.42.52-.6.7-.19.19-.39.39-.17.77.23.38 1.01 1.66 2.16 2.69 1.49 1.32 2.74 1.73 3.12 1.93.38.2.6.16.82-.1.23-.26.97-1.13 1.23-1.52.26-.38.52-.32.88-.19.36.13 2.27 1.07 2.66 1.26.39.2.65.29.74.46.1.16.1.93-.2 1.78Z"/>
+      </svg>
+      Check on WhatsApp
+    </button>
+</a>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="section amenities" id="amenities">
+  <div class="section-header fade-up">
+    <p class="section-eyebrow">What We Offer</p>
+    <h2 class="section-title">Signature <em>Amenities</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">🚿</div>
+      <h3>Luxury Rain Shower Bath</h3>
+      <p>Sleep on cloud-like floating beds designed for the deepest, most rejuvenating rest of your life.</p>
+    </div>
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">💆</div>
+      <h3>Free Massage Chair</h3>
+      <p>Unwind in our complimentary full-body massage chairs — available exclusively for all guests.</p>
+    </div>
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">🎬</div>
+      <h3>32” LED Smart TV</h3>
+      <p>Enjoy a soothing fish pedicure session that leaves your feet refreshed and silky smooth.</p>
+    </div>
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">❄️</div>
+      <h3>AC & Non-AC Rooms</h3>
+      <p>Choose from our premium air-conditioned or well-ventilated rooms tailored to your comfort.</p>
+    </div>
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">📶</div>
+      <h3>High-Speed Wi-Fi</h3>
+      <p>Stay connected with complimentary high-speed internet access throughout the property.</p>
+    </div>
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">🛗</div>
+      <h3>Lift/Elevator Access</h3>
+      <p>Smooth elevator access to all floors for your convenience.</p>
+    </div>
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">🚗</div>
+      <h3>Parking</h3>
+      <p>Safe and convenient parking space available for all guests.</p>
+    </div>
+    <div class="amenity-card fade-up">
+      <div class="amenity-icon">📹</div>
+      <h3>24/7 CCTv Camera</h3>
+      <p>Round-the-clock CCTV surveillance for a safe and secure stay.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="section" id="location">
+  <div class="section-header fade-up">
+    <p class="section-eyebrow">Prime Position</p>
+    <h2 class="section-title">Perfectly <em>Located</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="location-grid">
+    <div class="location-items fade-up">
+      <div class="loc-item">
+        <span class="loc-icon">🎓</span>
+        <div>
+          <h4>Karpagam University</h4>
+          <p>Right opposite the main entrance</p>
+        </div>
+        <span class="loc-time">1 min walk</span>
+      </div>
+      <div class="loc-item">
+        <span class="loc-icon">🛕</span>
+        <div>
+          <h4>Eachanari Vinayagar Temple</h4>
+          <p>Sacred temple, deeply revered</p>
+        </div>
+        <span class="loc-time">2 min drive</span>
+      </div>
+      <div class="loc-item">
+        <span class="loc-icon">💻</span>
+        <div>
+          <h4>Rathinam Techzone / Infotech Park</h4>
+          <p>Coimbatore's IT corridor</p>
+        </div>
+        <span class="loc-time">4 min drive</span>
+      </div>
+      <div class="loc-item">
+        <span class="loc-icon">🏢</span>
+        <div>
+          <h4>L&T IT Park</h4>
+          <p>Premier corporate business hub</p>
+        </div>
+        <span class="loc-time">2 min drive</span>
+      </div>
+    </div>
+    <div class="map-embed fade-up">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.6!2d76.9943!3d10.9773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859d5f29d7c3d%3A0x4a5d6de6a9b7c8e2!2sKarpagam%20Academy%20of%20Higher%20Education!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Lyra Residency Location Map">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="section rooms" id="rooms">
+  <div class="section-header fade-up">
+    <p class="section-eyebrow">Our Spaces</p>
+    <h2 class="section-title">Choose Your <em>Room</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="rooms-grid">
+    <!-- Non-AC Room -->
+    <div class="room-card fade-up">
+      <div class="room-img-wrap">
+        <img class="room-img" src="Heroimage.png" alt="Non-AC Double Room">
+        <span class="room-tag">AC</span>
+      </div>
+      <div class="room-body">
+        <h3>AC Double Room</h3>
+        <div class="room-features">
+          <span class="room-feat">🛏️ Double Bed</span>
+	  <span class="room-feat">❄️ Ac</span>
+          <span class="room-feat">📺 TV</span>
+          <span class="room-feat">🚿 Hot Water</span>
+          <span class="room-feat">🏨 Daily Housekeeping</span>
+        </div>
+        <div class="room-price-row">
+          <div class="room-price">₹1,950 <span>/ night</span></div>
+          <a href="#" class="room-book" onclick="bookRoom('AC Double Room (₹2200/night)')">Book Now</a>
+        </div>
+      </div>
+    </div>
+    <!-- AC Room -->
+    <div class="room-card fade-up">
+      <div class="room-img-wrap">
+        <img class="room-img" src="Heroimage.png" alt="AC Double Room">
+        <span class="room-tag">Non AC</span>
+      </div>
+      <div class="room-body">
+        <h3>Non AC Double Room</h3>
+        <div class="room-features">
+          <span class="room-feat">🛏️ Double Bed</span>
+          <span class="room-feat">❄️ House Keeping</span>
+          <span class="room-feat">📺 TV</span>
+          <span class="room-feat">🚿 Hot Water</span>
+        </div>
+        <div class="room-price-row">
+          <div class="room-price">₹1,750 <span>/ night</span></div>
+          <a href="#" class="room-book" onclick="bookRoom('AC Double Room (₹2200/night)')">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="gallery">
+  <div class="section-header fade-up">
+    <p class="section-eyebrow">Visual Tour</p>
+    <h2 class="section-title">A Glimpse of <em>Lyra</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="gallery-grid fade-up">
+    <div class="gallery-item">
+      <img src="Main Foto.jpg" alt="Luxury room interior">
+    </div>
+    <div class="gallery-item">
+      <img src="bathroom.jpg">
+    </div>
+    <div class="gallery-item">
+      <img src="window.jpg">
+    </div>
+    <div class="gallery-item">
+      <img src="logo.jpg">
+    </div>
+    <div class="gallery-item">
+      <img src="Heroimage.png" alt="Hotel lobby">
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials" id="testimonials">
+  <div class="section-header fade-up">
+    <p class="section-eyebrow">Guest Reviews</p>
+    <h2 class="section-title">What Guests <em>Say</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Exceptional comfort and cleanliness. The massage chair was an absolute highlight — felt like a proper spa experience! Definitely staying again."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div>
+          <div class="testi-name">Rajesh Kumar</div>
+          <div class="testi-loc">Parent of Karpagam Student</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Stayed here on a business trip to Rathinam Techzone. The AC room was spotless and the fish pedicure was something I'd never tried before. Loved it!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">PM</div>
+        <div>
+          <div class="testi-name">Priya Meenakshi</div>
+          <div class="testi-loc">IT Professional, Chennai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The floating bed is real and it's INCREDIBLE. Such a peaceful night's sleep. The WhatsApp booking was super easy — confirmed in minutes!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AS</div>
+        <div>
+          <div class="testi-name">Arjun Shankar</div>
+          <div class="testi-loc">Traveller, Bengaluru</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="section-header fade-up">
+    <p class="section-eyebrow">Get in Touch</p>
+    <h2 class="section-title">Reach <em>Us</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-info fade-up">
+      <h3>We'd love to host you at Lyra Residency</h3>
+      <div class="contact-detail">
+        <span class="contact-detail-icon">📍</span>
+        <div class="contact-detail-text">
+          <strong>Address</strong>
+          Opposite Karpagam University, Eachanari,<br>Coimbatore, Tamil Nadu, India
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-icon">📞</span>
+        <div class="contact-detail-text">
+          <strong>Phone</strong>
+          <a href="tel:+919363721003" style="color:var(--brown); text-decoration:none;">+91 9363721003</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-icon">⏰</span>
+        <div class="contact-detail-text">
+          <strong>Check-in / Check-out</strong>
+          Check-in: 12:00 PM &nbsp;|&nbsp; Check-out: 11:00 AM
+        </div>
+      </div>
+      <div class="contact-actions">
+        <a href="https://wa.me/919363721003?text=Hi,%20I%20want%20to%20enquire%20about%20rooms%20at%20Lyra%20Residency%2C%20Coimbatore." class="btn-wa" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.72.74 5.27 2.03 7.47L2 30l6.72-2.03A13.92 13.92 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2Zm7.19 19.44c-.3.85-1.76 1.62-2.44 1.72-.65.1-1.47.14-2.37-.15-.55-.17-1.25-.4-2.15-.78-3.78-1.64-6.24-5.46-6.43-5.71-.19-.25-1.53-2.04-1.53-3.89 0-1.85.97-2.76 1.31-3.14.34-.38.74-.48 1-.48.26 0 .51.01.73.02.24.01.55-.09.86.66.32.77 1.09 2.66 1.19 2.85.1.2.16.43.03.69-.13.26-.2.42-.39.65-.2.23-.42.52-.6.7-.19.19-.39.39-.17.77.23.38 1.01 1.66 2.16 2.69 1.49 1.32 2.74 1.73 3.12 1.93.38.2.6.16.82-.1.23-.26.97-1.13 1.23-1.52.26-.38.52-.32.88-.19.36.13 2.27 1.07 2.66 1.26.39.2.65.29.74.46.1.16.1.93-.2 1.78Z"/></svg>
+          Chat on WhatsApp
+        </a>
+        <a href="tel:+919363721003" class="btn-call">📞 Call Now</a>
+      </div>
+    </div>
+    <div class="map-embed fade-up">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.6!2d76.9943!3d10.9773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859d5f29d7c3d%3A0x4a5d6de6a9b7c8e2!2sKarpagam%20Academy%20of%20Higher%20Education!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Lyra Residency Map">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lyra <span>Residency</span></div>
+  <p class="footer-tagline">Premium Stay · Eachanari, Coimbatore</p>
+  <ul class="footer-links">
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-divider"></div>
+  <p class="footer-copy">© 2025 Lyra Residency. All rights reserved. Opposite Karpagam University, Eachanari, Coimbatore, Tamil Nadu.</p>
+</footer>
+
+<!-- STICKY WHATSAPP -->
+<a href="https://wa.me/919363721003?text=Hi,%20I%20want%20to%20enquire%20about%20rooms%20at%20Lyra%20Residency." class="sticky-wa" target="_blank" title="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 2C8.28 2 2 8.28 2 16c0 2.72.74 5.27 2.03 7.47L2 30l6.72-2.03A13.92 13.92 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2Zm7.19 19.44c-.3.85-1.76 1.62-2.44 1.72-.65.1-1.47.14-2.37-.15-.55-.17-1.25-.4-2.15-.78-3.78-1.64-6.24-5.46-6.43-5.71-.19-.25-1.53-2.04-1.53-3.89 0-1.85.97-2.76 1.31-3.14.34-.38.74-.48 1-.48.26 0 .51.01.73.02.24.01.55-.09.86.66.32.77 1.09 2.66 1.19 2.85.1.2.16.43.03.69-.13.26-.2.42-.39.65-.2.23-.42.52-.6.7-.19.19-.39.39-.17.77.23.38 1.01 1.66 2.16 2.69 1.49 1.32 2.74 1.73 3.12 1.93.38.2.6.16.82-.1.23-.26.97-1.13 1.23-1.52.26-.38.52-.32.88-.19.36.13 2.27 1.07 2.66 1.26.39.2.65.29.74.46.1.16.1.93-.2 1.78Z"/>
+  </svg>
+</a>
+
+<script>
+  // ── Auto-fill today's date ──
+  (function() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const fmt = d => d.toISOString().split('T')[0];
+    document.getElementById('checkin').value = fmt(today);
+    document.getElementById('checkout').value = fmt(tomorrow);
+    document.getElementById('checkin').min = fmt(today);
+    document.getElementById('checkout').min = fmt(tomorrow);
+    document.getElementById('checkin').addEventListener('change', function() {
+      const ci = new Date(this.value);
+      const co = new Date(ci); co.setDate(co.getDate() + 1);
+      document.getElementById('checkout').min = fmt(co);
+      if (new Date(document.getElementById('checkout').value) <= ci) {
+        document.getElementById('checkout').value = fmt(co);
+      }
+    });
+  })();
+
+  // ── WhatsApp Booking ──
+  function bookOnWhatsApp(roomOverride) {
+    const checkin  = document.getElementById('checkin').value  || 'Not selected';
+    const checkout = document.getElementById('checkout').value || 'Not selected';
+    const adults   = document.getElementById('adults').value   || '2 Adults';
+    const room     = roomOverride || document.getElementById('roomtype').value;
+    const msg = `Hi, I want to check availability at Lyra Residency.
+
+📅 Check-in: ${checkin}
+📅 Check-out: ${checkout}
+🏨 Room Type: ${room}
+👥 Adults: ${adults}
+
+Please confirm availability and rates. Thank you!`;
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/919363721003?text=${encoded}`, '_blank');
+  }
+
+  function bookRoom(type) {
+    document.getElementById('roomtype').value = type;
+    bookOnWhatsApp(type);
+  }
+
+  // ── Scroll progress line ──
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scrollLine').style.width = scrolled + '%';
+  });
+
+  // ── Fade-up on scroll ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── Mobile menu ──
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
