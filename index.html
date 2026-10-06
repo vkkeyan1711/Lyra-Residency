@@ -49,7 +49,7 @@
   "sameAs": ["https://share.google/KkFR9MLuCwS0pq12Z"],
   "checkinTime": "12:00",
   "checkoutTime": "11:00",
-  "priceRange": "₹1,300 - ₹1,800",
+  "priceRange": "₹1,400 - ₹1,800",
   "amenityFeature": [
     { "@type": "LocationFeatureSpecification", "name": "Air-conditioned rooms", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Wi-Fi", "value": true },
@@ -704,7 +704,7 @@
       <label for="roomtype">Room Type</label>
       <select id="roomtype" name="roomtype">
         <option value="ac">AC Double — ₹1,800</option>
-        <option value="nonac">Non-AC Double — ₹1,300</option>
+        <option value="nonac">Non-AC Double — ₹1,400</option>
       </select>
     </div>
     <button type="button" class="booking-submit" onclick="bookOnWhatsApp()">
@@ -877,7 +877,7 @@
           <span class="room-feat">🚿 Hot Water</span>
         </div>
         <div class="room-price-row">
-          <div class="room-price">₹1,300 <span>/ night</span></div>
+          <div class="room-price">₹1,400 <span>/ night</span></div>
           <button type="button" class="room-book" onclick="bookRoom('nonac')" aria-label="Book Non-AC Double Room on WhatsApp">Book Now</button>
         </div>
       </div>
@@ -918,7 +918,7 @@
     <details class="faq-item"><summary>How can I contact Lyra Residency?</summary>
       <p>Call or WhatsApp us on <a href="tel:+919363721003">+91 9363721003</a>.</p></details>
     <details class="faq-item"><summary>Does Lyra Residency have AC rooms?</summary>
-      <p>Yes. We offer an AC Double Room at ₹1,800 per night and a Non-AC Double Room at ₹1,300 per night.</p></details>
+      <p>Yes. We offer an AC Double Room at ₹1,800 per night and a Non-AC Double Room at ₹1,400 per night.</p></details>
     <details class="faq-item"><summary>Does Lyra Residency offer Wi-Fi?</summary>
       <p>Yes. Complimentary high-speed Wi-Fi is available throughout the property.</p></details>
     <details class="faq-item"><summary>How can I book a room at Lyra Residency?</summary>
@@ -1073,7 +1073,7 @@
   // ── Single source of truth for rooms & prices (must match the cards above) ──
   const ROOMS = {
     ac:    { name: 'AC Double Room',     price: '₹1,800' },
-    nonac: { name: 'Non-AC Double Room', price: '₹1,300' }
+    nonac: { name: 'Non-AC Double Room', price: '₹1,400' }
   };
 
   // ── WhatsApp Booking ──
