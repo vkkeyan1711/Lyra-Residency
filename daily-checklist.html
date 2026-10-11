@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Operations Checklist | Lyra Residency</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6efe3; --card:#fffaf1; --brown:#4a3222; --brown-2:#6b4a33;
+  --gold:#b8913f; --gold-soft:#e9dcbc; --line:#e3d6bb; --ok:#4f7a4a; --muted:#7a6551;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--brown);line-height:1.55;padding-bottom:40px}
+header{background:var(--brown);color:#f6efe3;text-align:center;padding:34px 18px 28px;border-bottom:4px solid var(--gold)}
+header .brand{font-family:'Cormorant Garamond',serif;font-size:2.1rem;letter-spacing:.18em;font-weight:700;color:var(--gold-soft)}
+header h1{font-family:'Jost',sans-serif;font-weight:300;font-size:1rem;letter-spacing:.3em;text-transform:uppercase;margin-top:4px}
+header .date{margin-top:12px;font-size:.9rem;color:#d9c9a6}
+main{max-width:760px;margin:0 auto;padding:22px 16px}
+.progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 12px}
+.bar-wrap{display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:10px;background:var(--gold-soft);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--ok));transition:width .3s}
+.pct{font-weight:600;font-size:.9rem;min-width:72px;text-align:right}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin-top:18px;box-shadow:0 2px 10px rgba(74,50,34,.06)}
+section h2{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--brown);display:flex;align-items:center;gap:10px}
+section h2 .n{background:var(--gold);color:#fff;width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;font-family:'Jost',sans-serif;font-weight:600;flex:none}
+.time{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:500;margin:4px 0 10px 42px}
+.intro{color:var(--muted);margin:8px 0 10px}
+ul{list-style:none}
+li{border-top:1px dashed var(--line)}
+li:first-child{border-top:0}
+label{display:flex;gap:14px;align-items:flex-start;padding:14px 4px;cursor:pointer}
+input[type=checkbox]{appearance:none;-webkit-appearance:none;width:26px;height:26px;flex:none;border:2px solid var(--gold);border-radius:7px;background:#fff;margin-top:2px;display:grid;place-content:center;cursor:pointer;transition:.15s}
+input[type=checkbox]::after{content:"";width:12px;height:7px;border:3px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) scale(0);transition:.15s;margin-top:-2px}
+input[type=checkbox]:checked{background:var(--ok);border-color:var(--ok)}
+input[type=checkbox]:checked::after{transform:rotate(-45deg) scale(1)}
+input[type=checkbox]:focus-visible{outline:3px solid var(--gold-soft);outline-offset:2px}
+.txt b{display:block;font-weight:600}
+.txt span{color:var(--muted);font-size:.95rem}
+li.done .txt{opacity:.55}
+li.done .txt b{text-decoration:line-through}
+.note{margin-top:12px;background:var(--gold-soft);border-left:4px solid var(--gold);padding:12px 14px;border-radius:8px;font-size:.95rem}
+.btn{display:inline-block;margin-top:14px;background:var(--brown);color:#f6efe3;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:500;letter-spacing:.04em;border:2px solid var(--brown)}
+.btn:hover{background:var(--brown-2)}
+.btn.alt{background:transparent;color:var(--brown);margin-left:8px;cursor:pointer;font-family:inherit;font-size:1rem}
+.btn.alt:hover{background:var(--gold-soft)}
+.actions{margin-top:22px;text-align:center}
+.all-done{display:none;text-align:center;margin-top:18px;background:#e6f0e2;color:#2f5a2b;border:1px solid #b9d3b3;padding:14px;border-radius:12px;font-weight:500}
+footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:26px}
+footer a{color:var(--brown-2)}
+@media (max-width:480px){header .brand{font-size:1.6rem}.btn.alt{margin-left:0;margin-top:10px}}
+@media print{.progress,.actions{display:none}body{background:#fff}section{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">LYRA RESIDENCY</div>
+  <h1>Daily Operations Checklist</h1>
+  <div class="date" id="today"></div>
+</header>
+
+<main>
+  <div class="progress">
+    <div class="bar-wrap">
+      <div class="bar"><span id="barFill"></span></div>
+      <div class="pct" id="pct">0 / 0</div>
+    </div>
+  </div>
+
+  <section id="morning">
+    <h2><span class="n">1</span> Morning Operations</h2>
+    <div class="time">6:00 AM – 8:00 AM</div>
+    <ul>
+      <li><label><input type="checkbox"><div class="txt"><b>Overhead Water Tank</b><span>Check the water level and ensure sufficient water supply.</span></div></label></li>
+      <li><label><input type="checkbox"><div class="txt"><b>Water Motor</b><span>If required, switch on the motor and set a reminder alarm. Verify that the tank is filling properly and switch off the motor once the tank is full.</span></div></label></li>
+      <li><label><input type="checkbox"><div class="txt"><b>Today's Arrivals &amp; Departures</b><span>Review today's expected check-ins and checkouts. Identify rooms that need to be cleaned and prepared for incoming guests.</span></div></label></li>
+    </ul>
+  </section>
+
+  <section id="housekeeping">
+    <h2><span class="n">2</span> Housekeeping &amp; Room Readiness</h2>
+    <p class="intro">Complete for every room being prepared.</p>
+    <ul>
+      <li><label><input type="checkbox"><div class="txt"><b>Fan</b><span>Set the fan to Speed 2.</span></div></label></li>
+      <li><label><input type="checkbox"><div class="txt"><b>Air Conditioner</b><span>Switch off the AC using the remote after cleaning and preparing the room.</span></div></label></li>
+      <li><label><input type="checkbox"><div class="txt"><b>Drinking Water</b><span>Place the required number of sealed drinking water bottles in the room.</span></div></label></li>
+      <li><label><input type="checkbox"><div class="txt"><b>Bathroom Mat</b><span>Place a fresh, clean bathroom mat in the bathroom.</span></div></label></li>
+      <li><label><input type="checkbox"><div class="txt"><b>Bed Linen</b><span>Check bedsheets and pillow covers. Replace them with fresh linen whenever required, especially after checkout.</span></div></label></li>
+    </ul>
+  </section>
+
+  <section id="inspection">
+    <h2><span class="n">3</span> Final Room Inspection</h2>
+    <p class="intro">Before marking a room as <b>Ready for Check-in</b>, confirm that all housekeeping tasks are completed and the room is clean, comfortable and prepared for the next guest.</p>
+    <ul>
+      <li><label><input type="checkbox"><div class="txt"><b>Room marked Ready for Check-in</b><span>All housekeeping tasks done; room is clean, comfortable and prepared.</span></div></label></li>
+    </ul>
+  </section>
+
+  <section id="checkout">
+    <h2><span class="n">4</span> End of Day</h2>
+    <div class="time">Checkout Time Update</div>
+    <ul>
+      <li><label><input type="checkbox"><div class="txt"><b>Update actual checkout times</b><span>Record the actual checkout times for all departed guests in the Google Sheet. Verify that the room numbers and checkout timings are recorded correctly.</span></div></label></li>
+    </ul>
+    <a class="btn" href="https://docs.google.com/spreadsheets/d/1AzRp28oCxFtX1YgLaIw_HAStMu5Qzo3hmX8ARZK06Xk/edit?usp=sharing" target="_blank" rel="noopener">Open Checkout Google Sheet →</a>
+  </section>
+
+  <div class="all-done" id="allDone">✔ All tasks completed for today. Great work!</div>
+
+  <div class="actions">
+    <button class="btn alt" id="reset" type="button">Reset checklist</button>
+  </div>
+
+  <footer>Lyra Residency · Internal staff use · <a href="/">Back to website</a></footer>
+</main>
+
+<script>
+(function(){
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  var KEY = 'lyra-checklist-' + new Date().toISOString().slice(0,10);
+  var d = new Date();
+  document.getElementById('today').textContent =
+    d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
+
+  function update(){
+    var done = 0, state = {};
+    boxes.forEach(function(b,i){
+      var li = b.closest('li');
+      li.classList.toggle('done', b.checked);
+      if(b.checked){ done++; state[i] = 1; }
+    });
+    document.getElementById('pct').textContent = done + ' / ' + boxes.length;
+    document.getElementById('barFill').style.width = (done / boxes.length * 100) + '%';
+    document.getElementById('allDone').style.display = done === boxes.length ? 'block' : 'none';
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+
+  boxes.forEach(function(b,i){
+    b.checked = !!saved[i];
+    b.addEventListener('change', update);
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    if(confirm('Clear all ticks for today?')){
+      boxes.forEach(function(b){ b.checked = false; });
+      update();
+    }
+  });
+  update();
+})();
+</script>
+</body>
+</html>
