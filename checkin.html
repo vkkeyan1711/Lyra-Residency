@@ -53,7 +53,9 @@
   .hint { font-size: 0.74rem; color: var(--brown); opacity: .85; }
   input[type=file] { padding: 10px; background: #fff; border-style: dashed; cursor: pointer; }
   .previews { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
-  .preview { font-size: 0.75rem; background: var(--cream); border: 1px solid var(--beige); border-radius: 20px; padding: 5px 12px; color: var(--brown); }
+  .preview { font-size: 0.75rem; background: var(--cream); border: 1px solid var(--beige); border-radius: 20px; padding: 5px 6px 5px 12px; color: var(--brown); display: inline-flex; align-items: center; gap: 8px; }
+  .preview button { font-family: 'Jost', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--error); background: transparent; border: 1px solid var(--beige); border-radius: 14px; padding: 3px 10px; cursor: pointer; }
+  .preview button:hover { border-color: var(--error); }
   .consent { display: flex; gap: 12px; align-items: flex-start; margin-top: 8px; font-size: 0.82rem; line-height: 1.6; color: var(--brown); }
   .consent input { width: 18px; height: 18px; margin-top: 3px; flex-shrink: 0; accent-color: var(--gold); }
   .submit {
@@ -169,7 +171,7 @@
       <div class="field full">
         <label for="idFiles">Upload ID Proof <span class="req">*</span></label>
         <input type="file" id="idFiles" accept="image/*,application/pdf" multiple>
-        <span class="hint">Front and back (up to 2 files). JPG, PNG or PDF, max 5 MB each.</span>
+        <span class="hint">Add the front first, then tap again to add the back. Each file you add is kept (up to 2). JPG, PNG or PDF, max 5 MB each.</span>
         <div class="previews" id="previews"></div>
         <span class="err" data-for="idFiles"></span>
       </div>
@@ -192,7 +194,7 @@
     <div class="tick" aria-hidden="true">✅</div>
     <h2>Thank you!</h2>
     <p>Your pre check-in has been received. Our team will have your details ready when you arrive.</p>
-    <p>Questions? Call or WhatsApp <a style="all:unset;color:var(--gold);cursor:pointer" href="tel:+919731542515">+91 9731542515</a>.</p>
+    <p>Questions? Call or WhatsApp <a style="all:unset;color:var(--gold);cursor:pointer" href="tel:+919363721003">+91 9363721003</a>.</p>
     <a href="/">Back to Home</a>
   </section>
 </main>
@@ -215,15 +217,43 @@
   dateEl.value = fmt(today);
   dateEl.min = fmt(today);
 
-  fileInput.addEventListener('change', () => {
+  // A file input forgets its earlier choice every time the guest picks again,
+  // so we keep our own list and add to it with each selection.
+  let selectedFiles = [];
+
+  function renderPreviews() {
     const box = document.getElementById('previews');
     box.innerHTML = '';
-    [...fileInput.files].forEach(f => {
+    selectedFiles.forEach((f, i) => {
       const s = document.createElement('span');
       s.className = 'preview';
-      s.textContent = f.name + ' (' + Math.round(f.size / 1024) + ' KB)';
+      s.appendChild(document.createTextNode(f.name + ' (' + Math.round(f.size / 1024) + ' KB)'));
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.textContent = 'Remove';
+      rm.setAttribute('aria-label', 'Remove ' + f.name);
+      rm.addEventListener('click', () => {
+        selectedFiles.splice(i, 1);
+        setErr('idFiles', '');
+        renderPreviews();
+      });
+      s.appendChild(rm);
       box.appendChild(s);
     });
+  }
+
+  fileInput.addEventListener('change', () => {
+    const incoming = [...fileInput.files];
+    let tooMany = false;
+    incoming.forEach(f => {
+      const dup = selectedFiles.some(x => x.name === f.name && x.size === f.size && x.lastModified === f.lastModified);
+      if (dup) return;
+      if (selectedFiles.length >= MAX_FILES) { tooMany = true; return; }
+      selectedFiles.push(f);
+    });
+    fileInput.value = ''; // lets the guest pick the same file again if they removed it
+    renderPreviews();
+    setErr('idFiles', tooMany ? 'You can upload at most ' + MAX_FILES + ' files. Remove one to add another.' : '');
   });
 
   function setErr(id, msg) {
@@ -248,7 +278,7 @@
     check('checkinDate', v('checkinDate') !== '' && v('checkinDate') >= fmt(new Date()), 'Choose today or a future date.');
     check('checkinTime', v('checkinTime') !== '', 'Choose your expected arrival time.');
 
-    const files = [...fileInput.files];
+    const files = selectedFiles;
     let fileMsg = '';
     if (files.length === 0) fileMsg = 'Please upload your ID proof.';
     else if (files.length > MAX_FILES) fileMsg = 'Upload at most ' + MAX_FILES + ' files.';
@@ -302,7 +332,7 @@
     }
     if (ENDPOINT.startsWith('PASTE_')) {
       statusEl.className = 'status error';
-      statusEl.textContent = 'Form is not connected yet. Please call +91 9731542515.';
+      statusEl.textContent = 'Form is not connected yet. Please call +91 9363721003.';
       return;
     }
 
@@ -310,7 +340,7 @@
     statusEl.textContent = 'Uploading your details, please wait…';
 
     try {
-      const processed = await Promise.all([...fileInput.files].map(compressImage));
+      const processed = await Promise.all(selectedFiles.map(compressImage));
       if (processed.some(f => f.size > MAX_FILE_BYTES)) throw new Error('Each file must be under 5 MB.');
       const files = await Promise.all(processed.map(async f => ({ name: f.name, type: f.type, data: await toBase64(f) })));
 
@@ -336,7 +366,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       statusEl.className = 'status error';
-      statusEl.textContent = (err && err.message ? err.message : 'Something went wrong.') + ' Please try again or call +91 9731542515.';
+      statusEl.textContent = (err && err.message ? err.message : 'Something went wrong.') + ' Please try again or call +91 9363721003.';
       btn.disabled = false; btn.textContent = 'Submit Pre Check-in';
     }
   });
