@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.lyraresidency.com/sitemap.xml
+Sitemap: https://lyraresidency.com/sitemap.xml
