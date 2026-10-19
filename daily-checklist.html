@@ -48,10 +48,6 @@ li:first-child{border-top:0}
 .chip{font:inherit;padding:9px 14px;border:1.5px solid var(--gold);border-radius:99px;background:#fff;color:var(--brown);cursor:pointer}
 .chip.on{background:var(--brown);color:#f6efe3;border-color:var(--brown)}
 .chip.on.bad{background:var(--bad);border-color:var(--bad)}
-.ph{display:flex;align-items:center;gap:12px}
-.ph .pick{font:inherit;padding:10px 14px;border:1.5px dashed var(--gold);border-radius:10px;background:#fff;color:var(--brown);cursor:pointer}
-.ph img{width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:none}
-.ph input{display:none}
 .save{margin-top:14px;font:inherit;font-weight:500;background:var(--brown);color:#f6efe3;border:2px solid var(--brown);border-radius:10px;padding:11px 22px;cursor:pointer}
 .save:disabled{opacity:.6}
 .msg{font-size:.9rem;margin-top:8px;min-height:1em}
@@ -105,11 +101,11 @@ footer a{color:var(--brown-2)}
 
 <script>
 (function(){
-  /* ====== SETTINGS: fill these two after deploying the Google Apps Script ====== */
-  var API   = 'https://script.google.com/macros/s/AKfycbze3fwThGrZs5PVsg77xQHCag6ZhZ4Tr1VGfNzom7OmaJmcBH0eiA1p6-gkNPkq-tKgDw/exec';
-  var TOKEN = 'Karthindhu@2015';           // must match TOKEN in Code.gs
-  var SHEET_URL = '';                          // optional: your Google Sheet link for the owner button
-  /* ============================================================================ */
+  /* ====== SETTINGS ====== */
+  var API   = 'https://script.google.com/macros/s/AKfycbyD3FKz5l71YNVcPPjvaZngtfaf9S7Et0Cdoirwegz_5jt3pV2v14K9pKuuQNgNWqjFhw/exec';   // Web app URL from the new Apps Script deployment
+  var TOKEN = 'Karthindhu@2015';                    // must match TOKEN in Code.gs
+  var SHEET_URL = '';                         // optional: your Google Sheet link for the owner button
+  /* ======================= */
 
   var Y='Yes', N='No';
   var SECTIONS = [
@@ -119,27 +115,25 @@ footer a{color:var(--brown-2)}
     {n:'Evening Reading', t:'6:00 PM'},
     {n:'End of Day', t:'Checkout Time Update'}
   ];
-  /* field: l=label, t=choice|number|text|time|photo, o=options, r=required, bad=option that shows red */
+  /* field: l=label, t=choice|number|text|time, o=options, r=required, bad=option that shows red (and raises an alert in the sheet) */
   var TASKS = [
     {s:0,id:'leaks',title:'Bathroom leak inspection',d:'Inspect all bathrooms for visible water leaks.',f:[
       {l:'Any leaks?',t:'choice',o:['No leaks','Leak found'],bad:'Leak found',r:1},
-      {l:'Leak photo (if any)',t:'photo'},{l:'Where / notes',t:'text'}]},
+      {l:'Where / notes',t:'text'}]},
     {s:0,id:'heatpump',title:'Heat pump',d:'Ensure the heat pump is ON and has not tripped.',f:[
-      {l:'Status',t:'choice',o:['ON – not tripped','Tripped / OFF'],bad:'Tripped / OFF',r:1},
-      {l:'Photo',t:'photo',r:1}]},
+      {l:'Status',t:'choice',o:['ON – not tripped','Tripped / OFF'],bad:'Tripped / OFF',r:1}]},
     {s:0,id:'tank',title:'Overhead water tank',d:'Check the water level and ensure sufficient water supply.',f:[
-      {l:'Water level',t:'choice',o:['Full','3/4','Half','1/4','Low'],bad:'Low',r:1},
-      {l:'Photo',t:'photo'}]},
+      {l:'Water level',t:'choice',o:['Full','3/4','Half','1/4','Low'],bad:'Low',r:1}]},
     {s:0,id:'motor',title:'Water motor',d:'If required, switch on the motor and set a reminder alarm. Verify the tank is filling and switch off once full. Post an update in the group.',f:[
       {l:'Motor',t:'choice',o:['Motor ON & alarm set','Not needed today'],r:1},
       {l:'Posted in group?',t:'choice',o:[Y,N],bad:N,r:1}]},
     {s:0,id:'soakpit',title:'Soakpit',d:'Check the soakpit water level and empty if required.',f:[
       {l:'Water level',t:'choice',o:['Low','Half','High','Full'],bad:'Full',r:1},
-      {l:'Emptied?',t:'choice',o:['Emptied','Not needed'],r:1},
-      {l:'Photo',t:'photo',r:1}]},
+      {l:'Emptied?',t:'choice',o:['Emptied','Not needed'],r:1}]},
     {s:0,id:'entrance',title:'Entrance pipes – both sides',d:'Check for water leaking at the entrance pipe on both sides.',f:[
-      {l:'Any leak?',t:'choice',o:['No leak','Leak found'],bad:'Leak found',r:1},
-      {l:'Left side photo',t:'photo',r:1},{l:'Right side photo',t:'photo',r:1}]},
+      {l:'Left side',t:'choice',o:['No leak','Leak found'],bad:'Leak found',r:1},
+      {l:'Right side',t:'choice',o:['No leak','Leak found'],bad:'Leak found',r:1},
+      {l:'Notes',t:'text'}]},
     {s:0,id:'dwater',title:'Drinking water can',d:'Check the drinking water can is available.',f:[
       {l:'Status',t:'choice',o:['Available','Needs refill','Ordered'],bad:'Needs refill',r:1},
       {l:'Notes',t:'text'}]},
@@ -159,7 +153,7 @@ footer a{color:var(--brown-2)}
       {l:'Room numbers ready',t:'text',r:1}]},
 
     {s:3,id:'eb',title:'EB reading – units',d:'Update daily at 6 PM.',f:[
-      {l:'Meter reading (units)',t:'number',r:1},{l:'Meter photo',t:'photo'}]},
+      {l:'Meter reading (units)',t:'number',r:1}]},
 
     {s:4,id:'checkout',rep:1,title:'Guest checkout times',d:'Record the actual checkout time for each departed guest. Save once per room.',f:[
       {l:'Room number',t:'text',r:1},{l:'Checkout time',t:'time',r:1}]}
@@ -195,12 +189,10 @@ footer a{color:var(--brown-2)}
         T.f.forEach(function(F,fi){
           fh+='<div class="f" data-fi="'+fi+'"><div class="fl">'+F.l+(F.r?' *':'')+'</div>';
           if(F.t==='choice') fh+='<div class="chips">'+F.o.map(function(o){return '<button type="button" class="chip'+(o===F.bad?' isbad':'')+'" data-v="'+o+'">'+o+'</button>'}).join('')+'</div>';
-          else if(F.t==='photo') fh+='<div class="ph"><button type="button" class="pick">📷 Take / choose photo</button><img alt=""><input type="file" accept="image/*" capture="environment"></div>';
           else fh+='<input type="'+(F.t==='number'?'number':F.t==='time'?'time':'text')+'"'+(F.t==='number'?' inputmode="decimal" step="any"':'')+'>';
           fh+='</div>';
         });
         li.innerHTML='<div class="th"><b>'+T.title+'</b><span class="cnt"></span></div><p class="d">'+T.d+'</p>'+fh+'<button type="button" class="save">Save</button><div class="msg"></div>';
-        li._ph={};
         resetForm(li,T);
       }
       ul.appendChild(li);
@@ -209,12 +201,10 @@ footer a{color:var(--brown-2)}
   });
 
   function resetForm(li,T){
-    li._ph={};
     Array.prototype.forEach.call(li.querySelectorAll('.f'),function(fd){
       var F=T.f[fd.dataset.fi];
       Array.prototype.forEach.call(fd.querySelectorAll('.chip'),function(c){c.classList.remove('on','bad')});
-      var inp=fd.querySelector('input:not([type=file])'); if(inp) inp.value=(F.t==='time'?nowHM():'');
-      var img=fd.querySelector('img'); if(img){img.style.display='none';img.removeAttribute('src');fd.querySelector('.pick').textContent='📷 Take / choose photo'}
+      var inp=fd.querySelector('input'); if(inp) inp.value=(F.t==='time'?nowHM():'');
     });
   }
 
@@ -226,62 +216,35 @@ footer a{color:var(--brown-2)}
       var chips=e.target.parentNode.children;
       Array.prototype.forEach.call(chips,function(c){c.classList.remove('on','bad')});
       e.target.classList.add('on'); if(e.target.classList.contains('isbad')) e.target.classList.add('bad');
-    }else if(e.target.classList.contains('pick')){
-      e.target.parentNode.querySelector('input').click();
     }else if(e.target.classList.contains('save')){
       save(li,T);
     }
   });
   root.addEventListener('change',function(e){
     var li=e.target.closest('li'); if(!li)return; var T=TASKS[li.dataset.i];
-    if(T.local){saved[T.id]=e.target.checked?1:0;store();update();return}
-    if(e.target.type==='file'&&e.target.files[0]){
-      var fd=e.target.closest('.f'), fi=fd.dataset.fi, msg=li.querySelector('.msg');
-      msg.className='msg';msg.textContent='Processing photo…';
-      compress(e.target.files[0]).then(function(data){
-        li._ph[fi]=data; var img=fd.querySelector('img'); img.src=data; img.style.display='block';
-        fd.querySelector('.pick').textContent='📷 Retake photo'; msg.textContent='';
-      }).catch(function(){msg.className='msg err';msg.textContent='Could not read that photo.'});
-    }
+    if(T.local){saved[T.id]=e.target.checked?1:0;store();update()}
   });
-
-  function compress(file){
-    return new Promise(function(res,rej){
-      var r=new FileReader();
-      r.onerror=rej;
-      r.onload=function(){
-        var im=new Image(); im.onerror=rej;
-        im.onload=function(){
-          var M=1280,s=Math.min(1,M/Math.max(im.width,im.height)),c=document.createElement('canvas');
-          c.width=Math.round(im.width*s); c.height=Math.round(im.height*s);
-          c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-          res(c.toDataURL('image/jpeg',0.7));
-        };
-        im.src=r.result;
-      };
-      r.readAsDataURL(file);
-    });
-  }
 
   /* ---------- save ---------- */
   function save(li,T){
     var msg=li.querySelector('.msg'),btn=li.querySelector('.save');
     function fail(t){msg.className='msg err';msg.textContent=t}
     if(!staffEl.value.trim()){staffEl.focus();return fail('Please enter your name at the top first.')}
-    var parts=[],photos=[],missing=null;
+    var parts=[],missing=null,flag=false;
     Array.prototype.forEach.call(li.querySelectorAll('.f'),function(fd){
-      var fi=fd.dataset.fi,F=T.f[fi],v='';
-      if(F.t==='choice'){var on=fd.querySelector('.chip.on');v=on?on.dataset.v:''}
-      else if(F.t==='photo'){
-        if(li._ph[fi]){photos.push({label:F.l,data:li._ph[fi]});v='(photo)'}
-      } else v=fd.querySelector('input').value.trim();
+      var F=T.f[fd.dataset.fi],v='';
+      if(F.t==='choice'){
+        var on=fd.querySelector('.chip.on');
+        v=on?on.dataset.v:'';
+        if(on&&on.classList.contains('isbad'))flag=true;
+      }else v=fd.querySelector('input').value.trim();
       if(F.r&&!v&&!missing)missing=F.l;
-      if(v&&F.t!=='photo')parts.push(F.l+': '+v);
+      if(v)parts.push(F.l+': '+v);
     });
     if(missing)return fail('Please fill: '+missing);
     if(API.indexOf('PASTE_')===0)return fail('Page not connected yet – add the Apps Script URL in the settings.');
-    btn.disabled=true;btn.textContent='Saving…';msg.className='msg';msg.textContent=photos.length?'Uploading photo(s)…':'';
-    var payload={token:TOKEN,date:DATE,staff:staffEl.value.trim(),section:SECTIONS[T.s].n,taskId:T.id,task:T.title,summary:parts.join(' | '),photos:photos};
+    btn.disabled=true;btn.textContent='Saving…';msg.className='msg';msg.textContent='';
+    var payload={token:TOKEN,date:DATE,staff:staffEl.value.trim(),section:SECTIONS[T.s].n,taskId:T.id,task:T.title,summary:parts.join(' | '),flag:flag};
     fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
       .then(function(r){return r.json()})
       .then(function(j){
@@ -289,7 +252,6 @@ footer a{color:var(--brown-2)}
         saved[T.id]=(saved[T.id]||0)+1;store();
         msg.className='msg ok';msg.textContent='✔ Saved at '+nowHM();
         if(T.rep)resetForm(li,T);
-        update();
       })
       .catch(function(err){fail('Not saved – check internet and try again. ('+err.message+')')})
       .then(function(){btn.disabled=false;update()});
