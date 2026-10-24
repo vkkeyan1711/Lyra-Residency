@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food & Beverages Menu | Lyra Residency, Eachanari, Coimbatore</title>
+<meta name="description" content="Order tea, coffee, cool drinks and snacks to your room at Lyra Residency, Eachanari, Coimbatore.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3d2b1a">
+<link rel="canonical" href="https://www.lyraresidency.com/menu.html">
+<link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #f8f4ee; --warm-white: #fdfaf6; --beige: #e8ddd0; --tan: #c9b89a;
+    --brown: #6b4c32; --dark-brown: #3d2b1a; --gold: #b8975a; --text-body: #4a3728;
+    --shadow: rgba(61,43,26,0.12); --error: #b3261e;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-body); padding-bottom: 90px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  header.top { background: rgba(253,250,246,0.97); border-bottom: 1px solid rgba(184,151,90,0.18); padding: 14px 5%; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--dark-brown); text-decoration: none; }
+  .logo span { color: var(--gold); }
+  .back { font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); text-decoration: none; font-weight: 500; }
+
+  nav.chips { position: sticky; top: 0; z-index: 40; background: rgba(253,250,246,0.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--beige); display: flex; gap: 8px; overflow-x: auto; padding: 10px 5%; scrollbar-width: none; }
+  nav.chips::-webkit-scrollbar { display: none; }
+  nav.chips a { flex-shrink: 0; font-size: 0.8rem; font-weight: 500; color: var(--dark-brown); text-decoration: none; background: #fff; border: 1px solid var(--beige); border-radius: 40px; padding: 9px 16px; white-space: nowrap; }
+
+  .hero { text-align: center; padding: 36px 5% 8px; max-width: 700px; margin: 0 auto; }
+  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.15; color: var(--dark-brown); }
+  h1 em { font-style: italic; color: var(--gold); }
+  .divider { width: 60px; height: 1px; background: var(--tan); margin: 14px auto; }
+  .hero p { font-size: 0.93rem; line-height: 1.7; color: var(--brown); }
+
+  main { max-width: 760px; margin: 0 auto; padding: 0 5%; }
+  section.cat { padding-top: 34px; scroll-margin-top: 56px; }
+  section.cat > h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 2rem; color: var(--dark-brown); display: flex; align-items: center; gap: 10px; }
+  h3.grp { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 22px 0 10px; }
+  .items { background: #fff; border: 1px solid var(--beige); border-radius: 6px; box-shadow: 0 4px 20px var(--shadow); overflow: hidden; }
+  .item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 1px solid var(--beige); }
+  .item:last-child { border-bottom: none; }
+  .dot { width: 14px; height: 14px; border: 2px solid; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .dot.veg { color: #2e7d32; } .dot.nonveg { color: #b3261e; }
+  .info { flex: 1; min-width: 0; }
+  .info h4 { font-size: 0.97rem; font-weight: 600; color: var(--dark-brown); }
+  .info p { font-size: 0.78rem; color: var(--brown); margin-top: 2px; line-height: 1.4; }
+  .price { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--dark-brown); white-space: nowrap; }
+  .add { background: #fff; color: var(--gold); border: 1px solid var(--gold); border-radius: 2px; font-family: 'Jost', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0 18px; min-height: 40px; cursor: pointer; min-width: 84px; }
+  .add:hover { background: var(--gold); color: #fff; }
+  .step { display: inline-flex; align-items: center; border: 1px solid var(--gold); border-radius: 2px; min-width: 84px; justify-content: space-between; background: var(--gold); color: #fff; }
+  .step button { background: none; border: none; color: #fff; font-size: 1.2rem; width: 36px; min-height: 40px; cursor: pointer; font-weight: 700; }
+  .step span { font-weight: 700; font-size: 0.9rem; }
+
+  .info-note { margin: 34px 0 0; background: #fff8ee; border-left: 3px solid var(--gold); border-radius: 4px; padding: 14px 18px; font-size: 0.85rem; line-height: 1.7; color: var(--brown); }
+
+  .cartbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; background: var(--dark-brown); color: #fff; padding: 12px 5%; display: none; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 -6px 24px rgba(0,0,0,0.2); }
+  .cartbar.show { display: flex; }
+  .cartbar .sum { font-size: 0.9rem; } .cartbar .sum strong { display: block; font-size: 1.15rem; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 22px; border-radius: 2px; border: none; cursor: pointer; text-decoration: none; font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; transition: transform .15s, background .2s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-gold { background: var(--gold); } .btn-gold:hover { background: #a07a3a; }
+  .btn-dark { background: var(--dark-brown); } .btn-wa { background: #25D366; } .btn-wa:hover { background: #1da853; }
+  .btn-line { background: transparent; color: var(--brown); border: 1px solid var(--gold); }
+  .btn:disabled { opacity: .6; cursor: wait; transform: none; }
+  .btn.full { width: 100%; }
+
+  .overlay { position: fixed; inset: 0; background: rgba(44,33,24,0.55); z-index: 80; display: none; align-items: flex-end; justify-content: center; }
+  .overlay.show { display: flex; }
+  .sheet { background: var(--warm-white); width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto; border-radius: 14px 14px 0 0; padding: 24px 22px 28px; }
+  @media (min-width: 640px) { .overlay { align-items: center; } .sheet { border-radius: 10px; } }
+  .sheet h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.8rem; color: var(--dark-brown); margin-bottom: 4px; }
+  .sheet .close { float: right; background: none; border: none; font-size: 1.6rem; color: var(--brown); cursor: pointer; min-width: 44px; min-height: 44px; }
+  .lines { margin: 14px 0; border-top: 1px solid var(--beige); }
+  .line { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--beige); font-size: 0.9rem; }
+  .line.total { font-weight: 700; font-size: 1.05rem; color: var(--dark-brown); border-bottom: none; }
+  .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  label, .lbl { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brown); }
+  input[type=text], input[type=tel], textarea { font-family: 'Jost', sans-serif; font-size: 1rem; background: #fff; border: 1px solid var(--beige); border-radius: 2px; padding: 12px 14px; width: 100%; color: var(--dark-brown); }
+  textarea { min-height: 64px; resize: vertical; }
+  .err { color: var(--error); font-size: 0.78rem; min-height: 1em; }
+  .radio { display: flex; gap: 10px; align-items: flex-start; background: #fff; border: 1px solid var(--beige); border-radius: 4px; padding: 12px 14px; margin-bottom: 8px; font-size: 0.9rem; cursor: pointer; text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--dark-brown); }
+  .radio input { margin-top: 3px; accent-color: var(--gold); width: 18px; height: 18px; }
+  .radio small { display: block; font-weight: 400; color: var(--brown); font-size: 0.78rem; }
+  .hp { position: absolute; left: -9999px; height: 0; width: 0; overflow: hidden; }
+  .status { margin-top: 12px; font-size: 0.88rem; text-align: center; min-height: 1.2em; color: var(--brown); }
+  .status.error { color: var(--error); }
+
+  .done { text-align: center; }
+  .done .tick { font-size: 2.6rem; }
+  .orderno { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--dark-brown); letter-spacing: 0.04em; margin: 6px 0 2px; word-break: break-all; }
+  .done p { font-size: 0.9rem; line-height: 1.65; color: var(--brown); margin: 6px 0; }
+  .demo { background: #fdecea; color: var(--error); border-radius: 4px; padding: 8px 12px; font-size: 0.8rem; margin-bottom: 12px; }
+  .paybox { background: #fff; border: 1px solid var(--beige); border-radius: 6px; padding: 18px; margin: 16px 0; }
+  .paybox .amt { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--dark-brown); }
+  #qr { display: flex; justify-content: center; margin: 14px 0 4px; }
+  #qr img, #qr canvas { max-width: 200px; height: auto; }
+  .steps { text-align: left; font-size: 0.86rem; line-height: 1.7; color: var(--brown); padding-left: 20px; margin: 10px 0; }
+  .stack { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+
+  footer { text-align: center; padding: 34px 5% 10px; font-size: 0.8rem; color: var(--brown); line-height: 1.7; }
+  @media (max-width: 420px) { .item { gap: 10px; padding: 12px; } .add, .step { min-width: 76px; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="/" class="logo">Lyra <span>Residency</span></a>
+  <a href="/" class="back">← Website</a>
+</header>
+<nav class="chips" id="chips" aria-label="Menu categories"></nav>
+
+<div class="hero">
+  <p class="eyebrow">Room Service</p>
+  <h1>Food &amp; <em>Beverages</em></h1>
+  <div class="divider"></div>
+  <p>Order tea, coffee, cool drinks and quick snacks to your room. Choose your items, place your order, and our team will bring it to you.</p>
+</div>
+
+<main id="menu"></main>
+
+<main>
+  <div class="info-note">
+    <strong>After you place your order, please call reception</strong> on
+    <a href="tel:+919363721003" style="color:var(--brown)">93637 21003</a> or
+    <a href="tel:+919731542515" style="color:var(--brown)">97315 42515</a> and inform them about your order number.
+  </div>
+</main>
+
+<footer>
+  Lyra Residency · Opposite Karpagam University, Eachanari, Coimbatore<br>
+  Prices are in ₹ and include applicable taxes unless mentioned. Items are subject to availability.
+</footer>
+
+<div class="cartbar" id="cartbar">
+  <div class="sum"><span id="cartCount">0 items</span><strong id="cartTotal">₹0</strong></div>
+  <button type="button" class="btn btn-gold" id="viewCart">View Order</button>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+/* =====================================================================
+   SETTINGS – edit these
+   ===================================================================== */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwZmsjrSUuc3XeqUHJfQicX5wSD3cBE8be59jub9iQxZakCroDBbiCcTS7vLErpxYDC/exec'; // from Apps Script (OrderScript.gs)
+const UPI_ID   = 'idhuadhyanmathi-1@oksbi';                    // e.g. lyraresidency@okhdfcbank
+const PAYEE    = 'Lyra Residency';
+const WHATSAPP = '919363721003';                              // reception WhatsApp
+const RECEPTION_CALL = '919363721003';
+
+/* =====================================================================
+   MENU – edit names and prices here.  veg:true = green dot, false = red dot.
+   All prices below were given by the hotel owner.
+   To hide an item, delete its line. Each "id" must be unique.
+   ===================================================================== */
+const MENU = [
+  { cat: 'Beverages', icon: '☕', groups: [
+    { title: 'Hot Drinks', items: [
+      { id: 'tea', name: 'Tea', price: 25, veg: true }
+    ]},
+    { title: 'Cool Drinks & Juices', items: [
+      { id: 'lime',   name: 'Lime Juice',                 price: 45, veg: true },
+      { id: 'frooti', name: 'Frooti',                     price: 25, veg: true },
+      { id: 'water',  name: 'Drinking Water (1 litre)',   price: 20, veg: true },
+      { id: 'coke',   name: 'Coke (1/2 litre)',           price: 75, veg: true },
+      { id: 'fanta',  name: 'Fanta (1/2 litre)',          price: 75, veg: true }
+    ]}
+  ]},
+  { cat: 'Refreshments', icon: '🍳', groups: [
+    { title: 'Egg Items', items: [
+      { id: 'omelette',       name: 'Omelette',       price: 35, veg: false },
+      { id: 'bread-omelette', name: 'Bread Omelette', price: 75, veg: false }
+    ]},
+    { title: 'Quick Bites', items: [
+      { id: 'maggi',       name: 'Maggi',          price: 65, veg: true, desc: 'Masala noodles' },
+      { id: 'bread-jam',   name: 'Bread & Jam (4 slices)',            price: 65, veg: true },
+      { id: 'bread-toast', name: 'Bread Toast with Butter (4 slices)', price: 75, veg: true }
+    ]}
+  ]},
+  { cat: 'Fruits', icon: '🍌', groups: [
+    { title: 'Fresh Fruits', items: [
+      { id: 'banana', name: 'Banana', price: 25, veg: true, desc: 'Per piece' }
+    ]}
+  ]}
+];
+
+/* ===================================================================== */
+const $ = id => document.getElementById(id);
+const rupee = n => '₹' + Number(n).toLocaleString('en-IN');
+const cart = {};          // id -> qty
+const byId = {};
+const refreshers = [];
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+function cartItems() { return Object.keys(cart).filter(k => cart[k] > 0).map(k => Object.assign({ qty: cart[k] }, byId[k])); }
+function cartTotal() { return cartItems().reduce((s, i) => s + i.price * i.qty, 0); }
+function cartCount() { return cartItems().reduce((s, i) => s + i.qty, 0); }
+
+function setQty(id, q) {
+  cart[id] = Math.max(0, Math.min(20, q));
+  refreshers.forEach(f => f(id));
+  updateBar();
+}
+function updateBar() {
+  const n = cartCount();
+  $('cartbar').classList.toggle('show', n > 0);
+  $('cartCount').textContent = n + (n === 1 ? ' item' : ' items');
+  $('cartTotal').textContent = rupee(cartTotal());
+}
+
+// ---------- render menu ----------
+(function () {
+  const menu = $('menu'), chips = $('chips');
+  MENU.forEach((c, ci) => {
+    const sec = el('section', 'cat'); sec.id = 'cat' + ci;
+    sec.append(el('h2', '', c.icon + ' ' + c.cat));
+    const a = el('a', '', c.cat); a.href = '#cat' + ci; chips.append(a);
+    c.groups.forEach(g => {
+      sec.append(el('h3', 'grp', g.title));
+      const box = el('div', 'items');
+      g.items.forEach(it => {
+        byId[it.id] = it;
+        const row = el('div', 'item');
+        const dot = el('span', 'dot ' + (it.veg ? 'veg' : 'nonveg')); dot.setAttribute('role', 'img'); dot.setAttribute('aria-label', it.veg ? 'Vegetarian' : 'Non-vegetarian');
+        const info = el('div', 'info'); info.append(el('h4', '', it.name)); if (it.desc) info.append(el('p', '', it.desc));
+        const price = el('div', 'price', rupee(it.price));
+        const ctl = el('div', 'ctl');
+        const render = () => {
+          ctl.textContent = '';
+          const q = cart[it.id] || 0;
+          if (!q) {
+            const b = el('button', 'add', 'Add'); b.type = 'button'; b.addEventListener('click', () => setQty(it.id, 1)); ctl.append(b);
+          } else {
+            const s = el('div', 'step');
+            const m = el('button', '', '−'); m.type = 'button'; m.setAttribute('aria-label', 'Remove one ' + it.name); m.addEventListener('click', () => setQty(it.id, q - 1));
+            const p = el('button', '', '+'); p.type = 'button'; p.setAttribute('aria-label', 'Add one ' + it.name); p.addEventListener('click', () => setQty(it.id, q + 1));
+            s.append(m, el('span', '', String(q)), p); ctl.append(s);
+          }
+        };
+        render();
+        refreshers.push(id => { if (id === it.id) render(); });
+        row.append(dot, info, price, ctl);
+        box.append(row);
+      });
+      sec.append(box);
+    });
+    menu.append(sec);
+  });
+})();
+
+// ---------- order sheet ----------
+const overlay = $('overlay'), sheet = $('sheet');
+function openSheet() { overlay.classList.add('show'); document.body.style.overflow = 'hidden'; }
+function closeSheet() { overlay.classList.remove('show'); document.body.style.overflow = ''; }
+overlay.addEventListener('click', e => { if (e.target === overlay) closeSheet(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+$('viewCart').addEventListener('click', showCheckout);
+
+function header(title) {
+  const x = el('button', 'close', '✕'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); x.addEventListener('click', closeSheet);
+  const h = el('h2', '', title); h.id = 'sheetTitle';
+  return [x, h];
+}
+
+function showCheckout() {
+  sheet.textContent = '';
+  header('Your Order').forEach(n => sheet.append(n));
+
+  const lines = el('div', 'lines');
+  cartItems().forEach(i => {
+    const l = el('div', 'line'); l.append(el('span', '', i.qty + ' × ' + i.name), el('span', '', rupee(i.price * i.qty))); lines.append(l);
+  });
+  const t = el('div', 'line total'); t.append(el('span', '', 'Total'), el('span', '', rupee(cartTotal()))); lines.append(t);
+  sheet.append(lines);
+
+  const f = el('form'); f.noValidate = true;
+  f.innerHTML =
+    '<div class="field"><label for="room">Room Number *</label><input type="text" id="room" maxlength="10" autocomplete="off"><span class="err" id="e-room"></span></div>' +
+    '<div class="field"><label for="gname">Your Name</label><input type="text" id="gname" maxlength="60" autocomplete="name"></div>' +
+    '<div class="field"><label for="gphone">Mobile Number</label><input type="tel" id="gphone" inputmode="numeric" maxlength="10" autocomplete="tel-national"></div>' +
+    '<div class="field"><label for="notes">Special Instructions</label><textarea id="notes" maxlength="200" placeholder="e.g. less sugar, no onion"></textarea></div>' +
+    '<div class="field"><span class="lbl">Payment</span>' +
+      '<label class="radio"><input type="radio" name="pay" value="upi" checked><span>Pay now by UPI<small>GPay, PhonePe, Paytm, any UPI app</small></span></label>' +
+      '<label class="radio"><input type="radio" name="pay" value="delivery"><span>Pay on delivery<small>Cash or UPI at your room</small></span></label></div>' +
+    '<div class="hp" aria-hidden="true"><input type="text" id="website" tabindex="-1" autocomplete="off"></div>' +
+    '<button type="submit" class="btn btn-gold full" id="placeBtn">Place Order</button>' +
+    '<p class="status" id="st" role="status" aria-live="polite"></p>';
+  sheet.append(f);
+  f.addEventListener('submit', placeOrder);
+  openSheet();
+}
+
+async function placeOrder(e) {
+  e.preventDefault();
+  const room = $('room').value.trim();
+  $('e-room').textContent = '';
+  if (!room) { $('e-room').textContent = 'Please enter your room number.'; $('room').focus(); return; }
+  const phone = $('gphone').value.trim();
+  if (phone && !/^[6-9]\d{9}$/.test(phone)) { $('st').className = 'status error'; $('st').textContent = 'Enter a valid 10-digit mobile number or leave it blank.'; return; }
+  if ($('website').value) return;
+
+  const pay = document.querySelector('input[name=pay]:checked').value;
+  const items = cartItems().map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty }));
+  const payload = { room: room, name: $('gname').value.trim(), phone: phone, notes: $('notes').value.trim(), payment: pay, items: items };
+
+  const btn = $('placeBtn'); btn.disabled = true; btn.textContent = 'Placing order…';
+  $('st').className = 'status'; $('st').textContent = '';
+
+  let result;
+  if (ENDPOINT.startsWith('PASTE_')) {
+    // DEMO MODE – nothing is sent. Lets you preview the flow before setup.
+    const d = new Date(), pad = n => String(n).padStart(2, '0');
+    result = { ok: true, demo: true, orderNo: 'LR-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-DEMO', total: cartTotal() };
+  } else {
+    try {
+      const resp = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+      result = await resp.json();
+    } catch (err) { result = { ok: false, error: 'Network problem.' }; }
+  }
+  if (!result.ok) {
+    btn.disabled = false; btn.textContent = 'Place Order';
+    $('st').className = 'status error';
+    $('st').textContent = (result.error || 'Could not place the order.') + ' Please try again or call reception.';
+    return;
+  }
+  showDone(result, payload);
+  Object.keys(cart).forEach(k => { cart[k] = 0; refreshers.forEach(f => f(k)); });
+  updateBar();
+}
+
+function upiLink(amount, orderNo) {
+  return 'upi://pay?pa=' + encodeURIComponent(UPI_ID) + '&pn=' + encodeURIComponent(PAYEE) +
+         '&am=' + Number(amount).toFixed(2) + '&cu=INR&tn=' + encodeURIComponent('Order ' + orderNo);
+}
+
+function showDone(r, p) {
+  sheet.textContent = '';
+  const box = el('div', 'done');
+  const x = el('button', 'close', '✕'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); x.addEventListener('click', closeSheet);
+  box.append(x);
+  if (r.demo) box.append(el('div', 'demo', 'DEMO MODE: this order was NOT sent. Connect the order script to go live.'));
+  box.append(el('div', 'tick', '✅'));
+  const h = el('h2', '', 'Order Placed'); h.id = 'sheetTitle'; box.append(h);
+  box.append(el('p', '', 'Your order number'));
+  box.append(el('div', 'orderno', r.orderNo));
+  box.append(el('p', '', 'Room ' + p.room + ' · Total ' + rupee(r.total)));
+
+  const call = document.createElement('a'); call.className = 'btn btn-dark full'; call.href = 'tel:+' + RECEPTION_CALL; call.textContent = '📞 Call Reception to Confirm';
+  const waMsg = 'Hello, I have placed order ' + r.orderNo + ' for Room ' + p.room + '.';
+
+  if (p.payment === 'upi') {
+    const pb = el('div', 'paybox');
+    pb.append(el('p', '', 'Amount to pay'), el('div', 'amt', rupee(r.total)));
+    if (UPI_ID.startsWith('PASTE_')) {
+      pb.append(el('p', '', 'UPI is not set up yet. Please pay at reception or on delivery.'));
+    } else {
+      const link = upiLink(r.total, r.orderNo);
+      const pay = document.createElement('a'); pay.className = 'btn btn-gold full'; pay.href = link; pay.textContent = '💳 Pay with UPI App'; pay.style.marginTop = '10px';
+      pb.append(pay);
+      pb.append(el('p', '', 'Using another phone or a computer? Scan this QR code:'));
+      const qr = el('div'); qr.id = 'qr'; pb.append(qr);
+      drawQR(qr, link);
+      const ol = el('ol', 'steps');
+      ['Tap "Pay with UPI App" (or scan the QR). The amount and order number are filled in for you.',
+       'After paying, send the payment screenshot to reception on WhatsApp with your order number.',
+       'Please also call reception to confirm your order.'].forEach(s => ol.append(el('li', '', s)));
+      pb.append(ol);
+    }
+    box.append(pb);
+    const stack = el('div', 'stack');
+    const wa = document.createElement('a'); wa.className = 'btn btn-wa full'; wa.target = '_blank'; wa.rel = 'noopener noreferrer';
+    wa.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent('Hello, I have paid ' + rupee(r.total) + ' for order ' + r.orderNo + ' (Room ' + p.room + '). Payment screenshot attached.');
+    wa.textContent = '💬 Send Payment Screenshot on WhatsApp';
+    stack.append(wa, call); box.append(stack);
+  } else {
+    box.append(el('p', '', 'Please pay ' + rupee(r.total) + ' on delivery (cash or UPI). Please call reception to confirm your order.'));
+    const stack = el('div', 'stack');
+    const wa = document.createElement('a'); wa.className = 'btn btn-wa full'; wa.target = '_blank'; wa.rel = 'noopener noreferrer';
+    wa.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(waMsg); wa.textContent = '💬 Message Reception on WhatsApp';
+    stack.append(call, wa); box.append(stack);
+  }
+  const close = el('button', 'btn btn-line full', 'Back to Menu'); close.type = 'button'; close.style.marginTop = '12px'; close.addEventListener('click', closeSheet);
+  box.append(close);
+  sheet.append(box);
+  openSheet();
+}
+
+function drawQR(target, text) {
+  function make() { try { new QRCode(target, { text: text, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M }); } catch (e) { target.remove(); } }
+  if (window.QRCode) return make();
+  const s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+  s.onload = make; s.onerror = () => target.remove();
+  document.head.append(s);
+}
+</script>
+</body>
+</html>
