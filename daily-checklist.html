@@ -42,6 +42,7 @@ li:first-child{border-top:0}
 .th b{font-weight:600}
 .cnt{font-size:.85rem;color:var(--ok);font-weight:600;white-space:nowrap}
 .d{color:var(--muted);font-size:.95rem;margin:2px 0 8px}
+.d.warn{color:var(--bad);font-weight:500}
 .f{margin-top:10px}
 .fl{font-size:.85rem;font-weight:500;color:var(--brown-2);margin-bottom:5px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -53,14 +54,6 @@ li:first-child{border-top:0}
 .msg{font-size:.9rem;margin-top:8px;min-height:1em}
 .msg.err{color:var(--bad)} .msg.ok{color:var(--ok)}
 li.done .th b{color:var(--ok)}
-li.local{display:flex;gap:14px;align-items:flex-start;cursor:pointer}
-input[type=checkbox]{appearance:none;-webkit-appearance:none;width:26px;height:26px;flex:none;border:2px solid var(--gold);border-radius:7px;background:#fff;margin-top:2px;display:grid;place-content:center;cursor:pointer;transition:.15s}
-input[type=checkbox]::after{content:"";width:12px;height:7px;border:3px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) scale(0);transition:.15s;margin-top:-2px}
-input[type=checkbox]:checked{background:var(--ok);border-color:var(--ok)}
-input[type=checkbox]:checked::after{transform:rotate(-45deg) scale(1)}
-li.local.done .txt{opacity:.55} li.local.done .txt b{text-decoration:line-through}
-.txt b{display:block;font-weight:600}
-.txt span{color:var(--muted);font-size:.95rem}
 .btn{display:inline-block;margin-top:14px;background:var(--brown);color:#f6efe3;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:500;border:2px solid var(--brown)}
 .btn.alt{background:transparent;color:var(--brown);cursor:pointer;font-family:inherit;font-size:1rem}
 .all-done{display:none;text-align:center;margin-top:18px;background:#e6f0e2;color:#2f5a2b;border:1px solid #b9d3b3;padding:14px;border-radius:12px;font-weight:500}
@@ -102,61 +95,38 @@ footer a{color:var(--brown-2)}
 <script>
 (function(){
   /* ====== SETTINGS ====== */
-  var API   = 'https://script.google.com/macros/s/AKfycbyD3FKz5l71YNVcPPjvaZngtfaf9S7Et0Cdoirwegz_5jt3pV2v14K9pKuuQNgNWqjFhw/exec';   // Web app URL from the new Apps Script deployment
-  var TOKEN = 'Karthindhu@2015';                    // must match TOKEN in Code.gs
+  var API   = 'https://script.google.com/macros/s/AKfycbyD3FKz5l71YNVcPPjvaZngtfaf9S7Et0Cdoirwegz_5jt3pV2v14K9pKuuQNgNWqjFhw/exec';   // Web app URL from the Apps Script deployment
+  var TOKEN = 'Karthindhu@2015';              // must match TOKEN in Code.gs
   var SHEET_URL = '';                         // optional: your Google Sheet link for the owner button
   /* ======================= */
 
   var Y='Yes', N='No';
   var SECTIONS = [
     {n:'Morning Operations', t:'6:00 AM – 8:00 AM'},
-    {n:'Housekeeping & Room Readiness', i:'Complete for every room being prepared.'},
-    {n:'Final Room Inspection', i:'Before marking a room as Ready for Check-in, confirm all housekeeping tasks are completed and the room is clean, comfortable and prepared for the next guest.'},
-    {n:'Evening Reading', t:'6:00 PM'},
-    {n:'End of Day', t:'Checkout Time Update'}
+    {n:'Evening Reading', t:'6:00 PM'}
   ];
   /* field: l=label, t=choice|number|text|time, o=options, r=required, bad=option that shows red (and raises an alert in the sheet) */
   var TASKS = [
-    {s:0,id:'leaks',title:'Bathroom leak inspection',d:'Inspect all bathrooms for visible water leaks.',f:[
+    {s:0,id:'leaks',title:'Bathroom leak inspection',d:'Observe carefully for any leaking in every bathroom – especially the health faucet, spray guns and hoses, and the heater faucet.',warn:'Do not waste water in the name of testing. Check by careful observation only.',f:[
       {l:'Any leaks?',t:'choice',o:['No leaks','Leak found'],bad:'Leak found',r:1},
       {l:'Where / notes',t:'text'}]},
     {s:0,id:'heatpump',title:'Heat pump',d:'Ensure the heat pump is ON and has not tripped.',f:[
       {l:'Status',t:'choice',o:['ON – not tripped','Tripped / OFF'],bad:'Tripped / OFF',r:1}]},
-    {s:0,id:'tank',title:'Overhead water tank',d:'Check the water level and ensure sufficient water supply.',f:[
-      {l:'Water level',t:'choice',o:['Full','3/4','Half','1/4','Low'],bad:'Low',r:1}]},
-    {s:0,id:'motor',title:'Water motor',d:'If required, switch on the motor and set a reminder alarm. Verify the tank is filling and switch off once full. Post an update in the group.',f:[
-      {l:'Motor',t:'choice',o:['Motor ON & alarm set','Not needed today'],r:1},
-      {l:'Posted in group?',t:'choice',o:[Y,N],bad:N,r:1}]},
+    {s:0,id:'tank',title:'Automatic water alarm',d:'Check that the automatic water alarm is working and its sound is coming properly.',f:[
+      {l:'Automatic water alarm working?',t:'choice',o:[Y,N],bad:N,r:1},
+      {l:'Alarm sound coming properly?',t:'choice',o:[Y,N],bad:N,r:1}]},
     {s:0,id:'soakpit',title:'Soakpit',d:'Check the soakpit water level and empty if required.',f:[
       {l:'Water level',t:'choice',o:['Low','Half','High','Full'],bad:'Full',r:1},
       {l:'Emptied?',t:'choice',o:['Emptied','Not needed'],r:1}]},
-    {s:0,id:'entrance',title:'Entrance pipes – both sides',d:'Check for water leaking at the entrance pipe on both sides.',f:[
-      {l:'Left side',t:'choice',o:['No leak','Leak found'],bad:'Leak found',r:1},
-      {l:'Right side',t:'choice',o:['No leak','Leak found'],bad:'Leak found',r:1},
-      {l:'Notes',t:'text'}]},
     {s:0,id:'dwater',title:'Drinking water can',d:'Check the drinking water can is available.',f:[
       {l:'Status',t:'choice',o:['Available','Needs refill','Ordered'],bad:'Needs refill',r:1},
       {l:'Notes',t:'text'}]},
-    {s:0,id:'arrivals',title:"Today's arrivals & departures",d:"Review today's expected check-ins and checkouts. Identify rooms to be cleaned and prepared.",f:[
-      {l:'Rooms to prepare today',t:'text'}]},
-
-    {s:1,local:1,id:'fan',title:'Fan',d:'Set the fan to Speed 2.'},
-    {s:1,local:1,id:'ac',title:'Air Conditioner',d:'Switch off the AC using the remote after cleaning and preparing the room.'},
-    {s:1,local:1,id:'bottles',title:'Drinking Water',d:'Place the required number of sealed drinking water bottles in the room.'},
-    {s:1,local:1,id:'mat',title:'Bathroom Mat',d:'Place a fresh, clean bathroom mat in the bathroom.'},
-    {s:1,local:1,id:'linen',title:'Bed Linen',d:'Check bedsheets and pillow covers. Replace with fresh linen when required, especially after checkout.'},
-    {s:1,id:'laundry',title:'Laundry follow-up',d:'Follow up on linen sent for laundry.',f:[
+    {s:0,id:'laundry',title:'Laundry follow-up',d:'Follow up on linen sent for laundry.',f:[
       {l:'Status',t:'choice',o:['Nothing pending','Sent','Received back','Delayed'],bad:'Delayed',r:1},
       {l:'Notes',t:'text'}]},
 
-    {s:2,id:'ready',title:'Rooms marked Ready for Check-in',d:'All housekeeping tasks done; rooms are clean, comfortable and prepared.',f:[
-      {l:'Room numbers ready',t:'text',r:1}]},
-
-    {s:3,id:'eb',title:'EB reading – units',d:'Update daily at 6 PM.',f:[
-      {l:'Meter reading (units)',t:'number',r:1}]},
-
-    {s:4,id:'checkout',rep:1,title:'Guest checkout times',d:'Record the actual checkout time for each departed guest. Save once per room.',f:[
-      {l:'Room number',t:'text',r:1},{l:'Checkout time',t:'time',r:1}]}
+    {s:1,id:'eb',title:'EB reading – units',d:'Update daily at 6 PM.',f:[
+      {l:'Meter reading (units)',t:'number',r:1}]}
   ];
 
   /* ---------- helpers ---------- */
@@ -181,20 +151,15 @@ footer a{color:var(--brown-2)}
     TASKS.forEach(function(T,ti){
       if(T.s!==si)return;
       var li=document.createElement('li'); li.dataset.i=ti; li.id='t-'+T.id;
-      if(T.local){
-        li.className='local';
-        li.innerHTML='<input type="checkbox"><div class="txt"><b>'+T.title+'</b><span>'+T.d+'</span></div>';
-      }else{
-        var fh='';
-        T.f.forEach(function(F,fi){
-          fh+='<div class="f" data-fi="'+fi+'"><div class="fl">'+F.l+(F.r?' *':'')+'</div>';
-          if(F.t==='choice') fh+='<div class="chips">'+F.o.map(function(o){return '<button type="button" class="chip'+(o===F.bad?' isbad':'')+'" data-v="'+o+'">'+o+'</button>'}).join('')+'</div>';
-          else fh+='<input type="'+(F.t==='number'?'number':F.t==='time'?'time':'text')+'"'+(F.t==='number'?' inputmode="decimal" step="any"':'')+'>';
-          fh+='</div>';
-        });
-        li.innerHTML='<div class="th"><b>'+T.title+'</b><span class="cnt"></span></div><p class="d">'+T.d+'</p>'+fh+'<button type="button" class="save">Save</button><div class="msg"></div>';
-        resetForm(li,T);
-      }
+      var fh='';
+      T.f.forEach(function(F,fi){
+        fh+='<div class="f" data-fi="'+fi+'"><div class="fl">'+F.l+(F.r?' *':'')+'</div>';
+        if(F.t==='choice') fh+='<div class="chips">'+F.o.map(function(o){return '<button type="button" class="chip'+(o===F.bad?' isbad':'')+'" data-v="'+o+'">'+o+'</button>'}).join('')+'</div>';
+        else fh+='<input type="'+(F.t==='number'?'number':F.t==='time'?'time':'text')+'"'+(F.t==='number'?' inputmode="decimal" step="any"':'')+'>';
+        fh+='</div>';
+      });
+      li.innerHTML='<div class="th"><b>'+T.title+'</b><span class="cnt"></span></div><p class="d">'+T.d+'</p>'+(T.warn?'<p class="d warn">⚠ '+T.warn+'</p>':'')+fh+'<button type="button" class="save">Save</button><div class="msg"></div>';
+      resetForm(li,T);
       ul.appendChild(li);
     });
     root.appendChild(sec);
@@ -219,10 +184,6 @@ footer a{color:var(--brown-2)}
     }else if(e.target.classList.contains('save')){
       save(li,T);
     }
-  });
-  root.addEventListener('change',function(e){
-    var li=e.target.closest('li'); if(!li)return; var T=TASKS[li.dataset.i];
-    if(T.local){saved[T.id]=e.target.checked?1:0;store();update()}
   });
 
   /* ---------- save ---------- */
@@ -264,11 +225,8 @@ footer a{color:var(--brown-2)}
       var li=document.getElementById('t-'+T.id),n=saved[T.id]||0;
       if(n>0)done++;
       li.classList.toggle('done',n>0);
-      if(T.local)li.querySelector('input').checked=n>0;
-      else{
-        li.querySelector('.cnt').textContent=n>0?'✔ '+(T.rep?n+' saved':'Saved'):'';
-        li.querySelector('.save').textContent=n>0&&!T.rep?'Save again':(T.rep&&n>0?'Save another':'Save');
-      }
+      li.querySelector('.cnt').textContent=n>0?'✔ '+(T.rep?n+' saved':'Saved'):'';
+      li.querySelector('.save').textContent=n>0&&!T.rep?'Save again':(T.rep&&n>0?'Save another':'Save');
     });
     document.getElementById('pct').textContent=done+' / '+TASKS.length;
     document.getElementById('barFill').style.width=(done/TASKS.length*100)+'%';
