@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lyra Residency | Hotel Near Karpagam University, Eachanari, Coimbatore</title>
-<meta name="description" content="Lyra Residency is a hotel opposite Karpagam University in Eachanari, Coimbatore. Watch the AC room tour, see rates from ₹1,400 and book directly on WhatsApp or call +91 9363721003.">
+<meta name="description" content="Lyra Residency is a hotel opposite Karpagam University in Eachanari, Coimbatore. Watch the AC room tour, see rates from ₹1,400 and get free breakfast and free late checkout when you book directly on WhatsApp or call +91 9363721003.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
 <meta name="theme-color" content="#3d2b1a">
 <meta name="geo.region" content="IN-TN">
@@ -94,6 +94,16 @@
     },
     {
       "@type": "Question",
+      "name": "Is breakfast included at Lyra Residency?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Free breakfast, served from 8:00 AM, is included when you book directly on WhatsApp or by phone at +91 9363721003, for both AC and Non-AC rooms." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Lyra Residency offer late checkout?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Direct WhatsApp and call bookings get free late checkout until 2:00 PM, subject to availability. Standard checkout is at 11:00 AM." }
+    },
+    {
+      "@type": "Question",
       "name": "Does Lyra Residency have AC rooms?",
       "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer an AC Double Room at ₹1,800 per night and a Non-AC Double Room at ₹1,400 per night." }
     },
@@ -140,7 +150,7 @@
 
   /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    position: fixed; top: 36px; left: 0; right: 0; z-index: 999;
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 5%;
     background: rgba(253,250,246,0.92);
@@ -199,7 +209,7 @@
   }
   .hero-content {
     flex: 1; display: flex; align-items: center;
-    padding: 120px 5% 60px;
+    padding: 156px 5% 60px;
     gap: 60px;
   }
   .hero-left { flex: 1; max-width: 560px; }
@@ -333,6 +343,27 @@
     flex-shrink: 0;
   }
   .booking-submit:hover { background: #a07a3a; transform: translateY(-2px); }
+
+
+  /* ── DIRECT BOOKING OFFER ── */
+  .offer-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 36px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    background: var(--gold); color: #fff; padding: 0 12px; text-align: center;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; white-space: nowrap; overflow: hidden;
+  }
+  .offer-bar a { color: #fff; text-decoration: underline; }
+  .badge-offer { background: #fff8ee; border-color: var(--gold); }
+  .room-offer {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--dark-brown); color: #fff;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .room-feat-offer { background: #fff8ee; border: 1px solid var(--gold); color: var(--dark-brown); font-weight: 500; }
+  .booking-note { max-width: 1100px; margin: 16px auto 0; font-size: 0.82rem; line-height: 1.6; color: var(--gold-light); text-align: center; }
+  .offer-terms { max-width: 700px; margin: 28px auto 0; text-align: center; font-size: 0.78rem; line-height: 1.6; color: var(--brown); }
+  @media (max-width: 580px) { .offer-bar { font-size: 0.7rem; letter-spacing: 0.02em; } .offer-bar .offer-long { display: none; } }
 
   /* ── SECTION HEADINGS ── */
   .section { padding: 90px 5%; }
@@ -574,7 +605,7 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero-content { flex-direction: column; padding-top: 100px; }
+    .hero-content { flex-direction: column; padding-top: 136px; }
     .hero-right { max-width: 100%; width: 100%; }
     .hero-img-frame { aspect-ratio: 16/9; }
     .hero-img-tag { display: none; }
@@ -664,6 +695,7 @@
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <div class="scroll-line" id="scrollLine" aria-hidden="true"></div>
+<div class="offer-bar" role="note"><span aria-hidden="true">🎁</span> <span>Free Breakfast &amp; Free Late Checkout</span> <span class="offer-long">on direct WhatsApp &amp; Call bookings</span></div>
 
 <header>
 <nav aria-label="Main navigation">
@@ -718,6 +750,8 @@
       </h1>
       <p class="hero-sub">Lyra Residency is a hotel in Eachanari, Coimbatore, located opposite Karpagam University on the Salem–Kochi National Highway. Enjoy comfortable AC and Non-AC rooms with warm hospitality, and book directly on WhatsApp.</p>
       <div class="hero-badges">
+        <div class="badge badge-offer"><span class="badge-icon" aria-hidden="true">🍳</span> Free Breakfast</div>
+        <div class="badge badge-offer"><span class="badge-icon" aria-hidden="true">🕑</span> Free Late Checkout</div>
         <div class="badge"><span class="badge-icon" aria-hidden="true">🛏️</span> Floating Bed Experience</div>
         <div class="badge"><span class="badge-icon" aria-hidden="true">❄️</span> AC Rooms</div>
         <div class="badge"><span class="badge-icon" aria-hidden="true">💆</span> Free Massage Chair</div>
@@ -787,6 +821,7 @@
       Check on WhatsApp
     </button>
   </div>
+  <p class="booking-note">🎁 Book directly on WhatsApp or call and enjoy free breakfast (from 8:00 AM) and free late checkout until 2:00 PM, subject to availability.</p>
 </section>
 
 <!-- AMENITIES -->
@@ -921,6 +956,7 @@
       <div class="room-img-wrap">
         <img class="room-img" src="https://lyraresidency.com/Heroimage.png" alt="Lyra Residency AC Double Room in Eachanari, Coimbatore" width="680" height="480" loading="lazy" decoding="async">
         <span class="room-tag">AC</span>
+        <span class="room-offer">Free Breakfast</span>
       </div>
       <div class="room-body">
         <h3>AC Double Room in Eachanari, Coimbatore</h3>
@@ -930,6 +966,8 @@
           <span class="room-feat">📺 TV</span>
           <span class="room-feat">🚿 Hot Water</span>
           <span class="room-feat">🏨 Daily Housekeeping</span>
+          <span class="room-feat room-feat-offer">🍳 Free Breakfast</span>
+          <span class="room-feat room-feat-offer">🕑 Free Late Checkout</span>
         </div>
         <div class="room-price-row">
           <div class="room-price">₹1,800 <span>/ night</span></div>
@@ -942,12 +980,15 @@
       <div class="room-img-wrap">
         <img class="room-img" src="https://lyraresidency.com/Heroimage.png" alt="Lyra Residency Non-AC Double Room in Eachanari, Coimbatore" width="680" height="480" loading="lazy" decoding="async">
         <span class="room-tag">Non AC</span>
+        <span class="room-offer">Free Breakfast</span>
       </div>
       <div class="room-body">
         <h3>Non-AC Double Room in Eachanari, Coimbatore</h3>
         <div class="room-features">
           <span class="room-feat">🛏️ Double Bed</span>
           <span class="room-feat">🏨 Housekeeping</span>
+          <span class="room-feat room-feat-offer">🍳 Free Breakfast</span>
+          <span class="room-feat room-feat-offer">🕑 Free Late Checkout</span>
           <span class="room-feat">📺 TV</span>
           <span class="room-feat">🚿 Hot Water</span>
         </div>
@@ -958,6 +999,7 @@
       </div>
     </div>
   </div>
+  <p class="offer-terms">Free breakfast (from 8:00 AM) and free late checkout until 2:00 PM, subject to availability, for direct WhatsApp and call bookings on both AC and Non-AC rooms.</p>
 </section>
 
 <!-- GALLERY -->
@@ -994,6 +1036,10 @@
       <p>The AC Double Room is ₹1,800 per night and the Non-AC Double Room is ₹1,400 per night.</p></details>
     <details class="faq-item"><summary>How can I contact Lyra Residency?</summary>
       <p>Call or WhatsApp us on <a href="tel:+919363721003">+91 9363721003</a>.</p></details>
+    <details class="faq-item"><summary>Is breakfast included at Lyra Residency?</summary>
+      <p>Yes. Free breakfast, served from 8:00 AM, is included when you book directly with us on WhatsApp or by phone, for both AC and Non-AC rooms. Message or call <a href="tel:+919363721003">+91 9363721003</a>.</p></details>
+    <details class="faq-item"><summary>Does Lyra Residency offer late checkout?</summary>
+      <p>Yes. Direct WhatsApp and call bookings get free late checkout until 2:00 PM, subject to availability. Standard checkout is at 11:00 AM.</p></details>
     <details class="faq-item"><summary>Does Lyra Residency have AC rooms?</summary>
       <p>Yes. We offer an AC Double Room at ₹1,800 per night and a Non-AC Double Room at ₹1,400 per night. Watch the <a href="#room-tour">AC room tour video</a> at the top of this page.</p></details>
     <details class="faq-item"><summary>Does Lyra Residency offer Wi-Fi?</summary>
@@ -1167,6 +1213,8 @@
 📅 Check-out: ${checkout}
 🏨 Room Type: ${r.name} (${r.price}/night)
 👥 Adults: ${adults}
+
+🎁 Direct booking offer: free breakfast + free late checkout (till 2 PM, subject to availability)
 
 Please confirm availability and rates. Thank you!`;
     window.open('https://wa.me/919363721003?text=' + encodeURIComponent(msg), '_blank', 'noopener');
