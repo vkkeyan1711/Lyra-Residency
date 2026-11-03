@@ -1,8 +1,4 @@
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
@@ -136,7 +132,7 @@
   <div class="info-note">
     <strong>After you place your order, please call reception</strong> on
     <a href="tel:+919363721003" style="color:var(--brown)">93637 21003</a> or
-    <a href="tel:+917358153330" style="color:var(--brown)">73581 53330</a> and inform them about your order number.
+    <a href="tel:+919731542515" style="color:var(--brown)">97315 42515</a> and inform them about your order number.
   </div>
 </main>
 
@@ -161,8 +157,8 @@
 const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzrSj-qigFFbWO2WUpXeF4udoNNLSAqaQh0OMdRsZJq4Z7CR0RS8z7p-Jvq7hPf-w1_/exec';   // Web app URL from Apps Script deployment (ends with /exec)
 const UPI_ID   = 'indhuadhyanmathi-1@oksbi';
 const PAYEE    = 'Indhumathi';
-const WHATSAPP = '917358153330';                  // reception WhatsApp
-const COOK_CALL = '917358153330';
+const WHATSAPP = '7358153330';                  // reception WhatsApp
+const RECEPTION_CALL = '7358153330';
 
 /* =====================================================================
    The menu is NOT edited here. It comes live from the "Menu" tab of
@@ -355,9 +351,21 @@ async function placeOrder(e) {
   updateBar();
 }
 
-function upiLink(amount, orderNo) {
-  return 'upi://pay?pa=' + encodeURIComponent(UPI_ID) + '&pn=' + encodeURIComponent(PAYEE) +
+function upiQuery(amount, orderNo) {
+  return 'pa=' + encodeURIComponent(UPI_ID) + '&pn=' + encodeURIComponent(PAYEE) +
          '&am=' + Number(amount).toFixed(2) + '&cu=INR&tn=' + encodeURIComponent('Order ' + orderNo);
+}
+function upiLink(amount, orderNo) { return 'upi://pay?' + upiQuery(amount, orderNo); }
+
+// Opens a specific UPI app directly (Android uses an intent link, iPhone uses the app's own scheme)
+function appLink(app, amount, orderNo) {
+  const q = upiQuery(amount, orderNo);
+  if (app === 'any') return 'upi://pay?' + q;
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const pkg = { gpay: 'com.google.android.apps.nbu.paisa.user', phonepe: 'com.phonepe.app', paytm: 'net.one97.paytm' };
+  const ios = { gpay: 'gpay://upi/pay?', phonepe: 'phonepe://pay?', paytm: 'paytmmp://pay?' };
+  if (isAndroid) return 'intent://pay?' + q + '#Intent;scheme=upi;package=' + pkg[app] + ';end';
+  return ios[app] + q;
 }
 
 function showDone(r, p) {
@@ -378,13 +386,17 @@ function showDone(r, p) {
     const pb = el('div', 'paybox');
     pb.append(el('p', '', 'Amount to pay'), el('div', 'amt', rupee(r.total)));
     const link = upiLink(r.total, r.orderNo);
-    const pay = document.createElement('a'); pay.className = 'btn btn-gold full'; pay.href = link; pay.textContent = '💳 Pay with UPI App'; pay.style.marginTop = '10px';
-    pb.append(pay);
+    const apps = el('div', 'stack'); apps.style.marginTop = '10px';
+    [['gpay', '💳 Pay with Google Pay'], ['phonepe', 'Pay with PhonePe'], ['paytm', 'Pay with Paytm'], ['any', 'Other UPI App']].forEach(a => {
+      const b = document.createElement('a'); b.className = 'btn ' + (a[0] === 'gpay' ? 'btn-gold' : 'btn-line') + ' full';
+      b.href = appLink(a[0], r.total, r.orderNo); b.textContent = a[1]; apps.append(b);
+    });
+    pb.append(apps);
     pb.append(el('p', '', 'Using another phone or a computer? Scan this QR code:'));
     const qr = el('div'); qr.id = 'qr'; pb.append(qr);
     drawQR(qr, link);
     const ol = el('ol', 'steps');
-    ['Tap "Pay with UPI App" (or scan the QR). The amount and order number are filled in for you.',
+    ['Tap your UPI app button (or scan the QR). The amount and order number are filled in for you.',
      'After paying, send the payment screenshot to reception on WhatsApp with your order number.',
      'Please also call reception to confirm your order.'].forEach(s => ol.append(el('li', '', s)));
     pb.append(ol);
