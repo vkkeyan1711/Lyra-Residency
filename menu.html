@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
@@ -157,8 +156,8 @@
 const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzrSj-qigFFbWO2WUpXeF4udoNNLSAqaQh0OMdRsZJq4Z7CR0RS8z7p-Jvq7hPf-w1_/exec';   // Web app URL from Apps Script deployment (ends with /exec)
 const UPI_ID   = 'SBIBHIM.INSTANT97993724778395884@sbipay';
 const PAYEE    = 'Lyra Residency';
-const WHATSAPP = '7358153330';                  // reception WhatsApp
-const RECEPTION_CALL = '7358153330';
+const WHATSAPP = '917358153330';                  // reception WhatsApp
+const RECEPTION_CALL = '917358153330';
 
 /* =====================================================================
    The menu is NOT edited here. It comes live from the "Menu" tab of
@@ -352,7 +351,7 @@ async function placeOrder(e) {
 }
 
 function upiQuery(amount, orderNo) {
-  return 'pa=' + encodeURIComponent(UPI_ID) + '&pn=' + encodeURIComponent(PAYEE) +
+  return 'pa=' + UPI_ID.trim() + '&pn=' + encodeURIComponent(PAYEE) +
          '&am=' + Number(amount).toFixed(2) + '&cu=INR&tn=' + encodeURIComponent('Order ' + orderNo);
 }
 function upiLink(amount, orderNo) { return 'upi://pay?' + upiQuery(amount, orderNo); }
@@ -387,11 +386,15 @@ function showDone(r, p) {
     pb.append(el('p', '', 'Amount to pay'), el('div', 'amt', rupee(r.total)));
     const link = upiLink(r.total, r.orderNo);
     const apps = el('div', 'stack'); apps.style.marginTop = '10px';
-    [['gpay', '💳 Pay with Google Pay'], ['phonepe', 'Pay with PhonePe'], ['paytm', 'Pay with Paytm'], ['any', 'Other UPI App']].forEach(a => {
-      const b = document.createElement('a'); b.className = 'btn ' + (a[0] === 'gpay' ? 'btn-gold' : 'btn-line') + ' full';
+    [['any', '💳 Pay with UPI App'], ['gpay', 'Google Pay'], ['phonepe', 'PhonePe'], ['paytm', 'Paytm']].forEach(a => {
+      const b = document.createElement('a'); b.className = 'btn ' + (a[0] === 'any' ? 'btn-gold' : 'btn-line') + ' full';
       b.href = appLink(a[0], r.total, r.orderNo); b.textContent = a[1]; apps.append(b);
     });
     pb.append(apps);
+    const manual = el('p', '', 'Or pay manually in any UPI app to: ' + UPI_ID); manual.style.marginTop = '12px';
+    const cp = el('button', 'btn btn-line full', 'Copy UPI ID'); cp.type = 'button'; cp.style.marginTop = '8px';
+    cp.addEventListener('click', () => { try { navigator.clipboard.writeText(UPI_ID); cp.textContent = 'Copied ✓'; } catch (e) { cp.textContent = UPI_ID; } });
+    pb.append(manual, cp);
     pb.append(el('p', '', 'Using another phone or a computer? Scan this QR code:'));
     const qr = el('div'); qr.id = 'qr'; pb.append(qr);
     drawQR(qr, link);
