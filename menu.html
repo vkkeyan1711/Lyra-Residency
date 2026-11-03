@@ -384,22 +384,16 @@ function showDone(r, p) {
   if (p.payment === 'upi') {
     const pb = el('div', 'paybox');
     pb.append(el('p', '', 'Amount to pay'), el('div', 'amt', rupee(r.total)));
-    const link = upiLink(r.total, r.orderNo);
-    const apps = el('div', 'stack'); apps.style.marginTop = '10px';
-    [['any', '💳 Pay with UPI App'], ['gpay', 'Google Pay'], ['phonepe', 'PhonePe'], ['paytm', 'Paytm']].forEach(a => {
-      const b = document.createElement('a'); b.className = 'btn ' + (a[0] === 'any' ? 'btn-gold' : 'btn-line') + ' full';
-      b.href = appLink(a[0], r.total, r.orderNo); b.textContent = a[1]; apps.append(b);
-    });
-    pb.append(apps);
-    const manual = el('p', '', 'Or pay manually in any UPI app to: ' + UPI_ID); manual.style.marginTop = '12px';
+    const link = 'upi://pay?pa=' + UPI_ID.trim() + '&pn=' + encodeURIComponent(PAYEE) + '&cu=INR';
+    const manual = el('p', '', 'UPI ID: ' + UPI_ID); manual.style.marginTop = '12px'; manual.style.wordBreak = 'break-all';
     const cp = el('button', 'btn btn-line full', 'Copy UPI ID'); cp.type = 'button'; cp.style.marginTop = '8px';
     cp.addEventListener('click', () => { try { navigator.clipboard.writeText(UPI_ID); cp.textContent = 'Copied ✓'; } catch (e) { cp.textContent = UPI_ID; } });
     pb.append(manual, cp);
-    pb.append(el('p', '', 'Using another phone or a computer? Scan this QR code:'));
+    pb.append(el('p', '', 'Or scan this QR code with any UPI app:'));
     const qr = el('div'); qr.id = 'qr'; pb.append(qr);
     drawQR(qr, link);
     const ol = el('ol', 'steps');
-    ['Tap your UPI app button (or scan the QR). The amount and order number are filled in for you.',
+    ['Copy the UPI ID (or scan the QR code) in any UPI app and pay exactly the amount shown above. Write your order number in the payment note.',
      'After paying, send the payment screenshot to reception on WhatsApp with your order number.',
      'Please also call reception to confirm your order.'].forEach(s => ol.append(el('li', '', s)));
     pb.append(ol);
