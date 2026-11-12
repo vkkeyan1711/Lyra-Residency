@@ -132,23 +132,11 @@
         <span class="err" data-for="idType"></span>
       </div>
 
-      <div class="field">
-        <label for="idNumber">ID Number <span class="req">*</span></label>
-        <input type="text" id="idNumber" name="idNumber" maxlength="30" autocomplete="off" required>
-        <span class="err" data-for="idNumber"></span>
-      </div>
-
-      <div class="field">
-        <label for="checkinDate">Check-in Date <span class="req">*</span></label>
-        <input type="date" id="checkinDate" name="checkinDate" required>
-        <span class="err" data-for="checkinDate"></span>
-      </div>
-
-      <div class="field">
-        <label for="checkinTime">Check-in Time <span class="req">*</span></label>
-        <input type="time" id="checkinTime" name="checkinTime" required>
-        <span class="hint">Standard check-in is 12:00 PM.</span>
-        <span class="err" data-for="checkinTime"></span>
+    
+          <div class="field">
+        <label for="checkinTime">Check-in Time</label>
+        <input type="text" id="checkinTime" name="checkinTime" readonly tabindex="-1" style="background:var(--cream);cursor:default">
+        <span class="hint">Filled in automatically.</span>
       </div>
 
       <div class="field">
@@ -211,11 +199,16 @@
   const btn = document.getElementById('submitBtn');
   const fileInput = document.getElementById('idFiles');
 
-  const fmt = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-  const dateEl = document.getElementById('checkinDate');
-  const today = new Date();
-  dateEl.value = fmt(today);
-  dateEl.min = fmt(today);
+  // Auto-filled, read-only check-in time (the sheet records the exact IST time on submit)
+  const timeEl = document.getElementById('checkinTime');
+  function updateTime() {
+    timeEl.value = new Date().toLocaleString('en-IN', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Kolkata'
+    });
+  }
+  updateTime();
+  setInterval(updateTime, 30000);
 
   // A file input forgets its earlier choice every time the guest picks again,
   // so we keep our own list and add to it with each selection.
@@ -274,9 +267,7 @@
     check('age', age >= 18 && age <= 120, 'Age must be between 18 and 120.');
     check('address', v('address').length >= 8, 'Please enter your full address.');
     check('idType', v('idType') !== '', 'Select an ID type.');
-    check('idNumber', v('idNumber').length >= 4, 'Enter your ID number.');
-    check('checkinDate', v('checkinDate') !== '' && v('checkinDate') >= fmt(new Date()), 'Choose today or a future date.');
-    check('checkinTime', v('checkinTime') !== '', 'Choose your expected arrival time.');
+
 
     const files = selectedFiles;
     let fileMsg = '';
@@ -347,8 +338,7 @@
       const g = id => document.getElementById(id).value.trim();
       const payload = {
         name: g('name'), mobile: g('mobile'), age: g('age'), address: g('address'),
-        idType: g('idType'), idNumber: g('idNumber'),
-        checkinDate: g('checkinDate'), checkinTime: g('checkinTime'),
+                idType: g('idType'),
         roomNumber: g('roomNumber'), guests: g('guests'),
         files: files
       };
