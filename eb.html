@@ -39,6 +39,10 @@
   .hint { font-size: 0.74rem; color: var(--brown); opacity: .85; }
   .timebox { background: var(--cream); border: 1px dashed var(--gold); border-radius: 2px; padding: 12px 14px; }
   .timebox strong { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--dark-brown); }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .seg button { font-family: 'Jost', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brown); background: var(--warm-white); border: 1px solid var(--beige); border-radius: 2px; padding: 13px 8px; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .seg button small { display: block; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.04em; text-transform: none; margin-top: 2px; opacity: .85; }
+  .seg button.on { background: var(--dark-brown); color: #fff; border-color: var(--dark-brown); }
   .submit { width: 100%; margin-top: 4px; background: var(--dark-brown); color: #fff; border: none; cursor: pointer; padding: 16px; border-radius: 2px; font-family: 'Jost', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; transition: background .2s, transform .15s; }
   .submit:hover:not(:disabled) { background: var(--gold); transform: translateY(-2px); }
   .submit:disabled { opacity: .6; cursor: wait; }
@@ -63,19 +67,28 @@
   <p class="eyebrow">Daily Log</p>
   <h1>EB <em>Meter Reading</em></h1>
   <div class="divider"></div>
-  <p class="intro">Enter the reading shown on the main meter. Units used since the last reading, the estimated bill and room occupancy are worked out automatically.</p>
+  <p class="intro">Enter the reading shown on the main meter, twice a day. Units used since the last reading, the estimated bill and room occupancy are worked out automatically.</p>
 
   <form id="ebForm" novalidate>
     <div class="field">
       <span class="label">Reading time</span>
       <div class="timebox"><strong id="clock">--</strong></div>
-      <span class="hint">Recorded automatically. Normal time is 8:30 am.</span>
+      <span class="hint">Recorded automatically.</span>
+    </div>
+
+    <div class="field">
+      <span class="label" id="sessLabel">Reading for <span style="color:var(--error)">*</span></span>
+      <div class="seg" role="group" aria-labelledby="sessLabel">
+        <button type="button" id="sessMorning" data-session="Morning" aria-pressed="false">Morning<small>about 8:30 am</small></button>
+        <button type="button" id="sessEvening" data-session="Evening" aria-pressed="false">Evening<small>about 6:00 pm</small></button>
+      </div>
+      <span class="hint">Picked automatically from the time. Change it if needed. One reading per session each day.</span>
     </div>
 
     <div class="field">
       <label for="reading">Meter reading (units) <span class="req">*</span></label>
       <input class="big" type="text" id="reading" inputmode="decimal" autocomplete="off" placeholder="e.g. 12345.6" required>
-      <span class="hint">Type exactly what the meter shows. One reading per day.</span>
+      <span class="hint">Type exactly what the meter shows.</span>
       <span class="err" data-for="reading"></span>
     </div>
 
@@ -114,6 +127,22 @@
   const tick = () => $('clock').textContent = fmt.format(new Date());
   tick(); setInterval(tick, 15000);
 
+  // Morning / Evening: picked from the IST time (before 2 pm = Morning), can be changed by hand
+  let session = '';
+  function istHour() {
+    return Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }).format(new Date())) % 24;
+  }
+  function setSession(s) {
+    session = s;
+    ['Morning', 'Evening'].forEach(n => {
+      const b = $('sess' + n);
+      b.classList.toggle('on', n === s);
+      b.setAttribute('aria-pressed', n === s ? 'true' : 'false');
+    });
+  }
+  setSession(istHour() < 14 ? 'Morning' : 'Evening');
+  ['Morning', 'Evening'].forEach(n => $('sess' + n).addEventListener('click', () => setSession(n)));
+
   try { const p = localStorage.getItem('lyraEbPin'); if (p) $('pin').value = p; } catch (e) {}
 
   function setErr(id, msg) {
@@ -141,32 +170,33 @@
       const resp = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'eb', reading: reading, note: $('note').value.trim(), pin: $('pin').value.trim() })
+        body: JSON.stringify({ action: 'eb', session: session, reading: reading, note: $('note').value.trim(), pin: $('pin').value.trim() })
       });
       const r = await resp.json();
 
       if (r.ok) {
         try { localStorage.setItem('lyraEbPin', $('pin').value.trim()); } catch (x) {}
+        const sName = (r.session || session).toLowerCase();
         form.style.display = 'none';
         if (r.first) {
           $('rTitle').textContent = 'First reading saved';
           $('stats').innerHTML = stat(reading, 'Meter reading') + stat(r.occupied, 'Rooms occupied');
-          $('rNote').textContent = 'This is the starting point. Units used and the bill will show from tomorrow\'s reading.';
+          $('rNote').textContent = 'This is the starting point. Units used and the bill will show from the next reading.';
         } else {
-          $('rTitle').textContent = 'Reading saved';
+          $('rTitle').textContent = (r.session || session) + ' reading saved';
           $('stats').innerHTML =
             stat(r.units, 'Units used') +
             stat('₹' + Number(r.bill).toLocaleString('en-IN'), 'Estimated bill (₹' + r.rate + '/unit)') +
             stat(r.occupied, 'Rooms occupied') +
             stat(r.perRoom === null ? '–' : r.perRoom, 'Units per occupied room');
-          $('rNote').textContent = 'Units used since the previous reading. Full history is in the EB Usage tab of your sheet.';
+          $('rNote').textContent = 'Units used since the previous reading (' + (sName === 'morning' ? 'yesterday evening to this morning' : 'this morning to this evening') + '). Full history is in the EB Usage tab of your sheet.';
         }
         $('result').classList.add('show');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (r.error === 'bad_pin') {
         throw new Error('Wrong PIN.');
       } else if (r.error === 'already_entered') {
-        throw new Error('Today\'s reading is already saved (' + r.reading + (r.time ? ' at ' + r.time : '') + '). To correct it, edit the EB Usage tab.');
+        throw new Error('Today\'s ' + (r.session || session).toLowerCase() + ' reading is already saved (' + r.reading + (r.time ? ' at ' + r.time : '') + '). To correct it, edit the EB Usage tab.');
       } else if (r.error === 'lower_than_previous') {
         throw new Error('This is lower than the previous reading (' + r.previous + '). Please check the number.');
       } else if (r.error === 'bad_reading') {
