@@ -132,8 +132,7 @@
         <span class="err" data-for="idType"></span>
       </div>
 
-    
-          <div class="field">
+      <div class="field">
         <label for="checkinTime">Check-in Time</label>
         <input type="text" id="checkinTime" name="checkinTime" readonly tabindex="-1" style="background:var(--cream);cursor:default">
         <span class="hint">Filled in automatically.</span>
@@ -154,6 +153,17 @@
           <option value="4">4</option>
           <option value="5+">5+</option>
         </select>
+      </div>
+
+      <div class="field">
+        <label for="paymentMode">Payment Mode <span class="req">*</span></label>
+        <select id="paymentMode" name="paymentMode" required>
+          <option value="">Select payment mode</option>
+          <option value="Cash">Cash</option>
+          <option value="GPay">GPay</option>
+          <option value="Online Booking">Online Booking</option>
+        </select>
+        <span class="err" data-for="paymentMode"></span>
       </div>
 
       <div class="field full">
@@ -194,6 +204,7 @@
 
   const MAX_FILE_BYTES = 5 * 1024 * 1024;
   const MAX_FILES = 2;
+  const PAYMENT_MODES = ['Cash', 'GPay', 'Online Booking'];
   const form = document.getElementById('checkinForm');
   const statusEl = document.getElementById('status');
   const btn = document.getElementById('submitBtn');
@@ -267,7 +278,7 @@
     check('age', age >= 18 && age <= 120, 'Age must be between 18 and 120.');
     check('address', v('address').length >= 8, 'Please enter your full address.');
     check('idType', v('idType') !== '', 'Select an ID type.');
-
+    check('paymentMode', PAYMENT_MODES.indexOf(v('paymentMode')) !== -1, 'Select a payment mode.');
 
     const files = selectedFiles;
     let fileMsg = '';
@@ -338,8 +349,9 @@
       const g = id => document.getElementById(id).value.trim();
       const payload = {
         name: g('name'), mobile: g('mobile'), age: g('age'), address: g('address'),
-                idType: g('idType'),
+        idType: g('idType'),
         roomNumber: g('roomNumber'), guests: g('guests'),
+        paymentMode: g('paymentMode'),
         files: files
       };
 
