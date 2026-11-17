@@ -166,6 +166,13 @@
         <span class="err" data-for="paymentMode"></span>
       </div>
 
+      <div class="field">
+        <label for="amountPaid">Amount Paid (₹) <span class="req">*</span></label>
+        <input type="number" id="amountPaid" name="amountPaid" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="e.g. 2500" required>
+        <span class="hint">Enter 0 if nothing has been paid yet.</span>
+        <span class="err" data-for="amountPaid"></span>
+      </div>
+
       <div class="field full">
         <label for="idFiles">Upload ID Proof <span class="req">*</span></label>
         <input type="file" id="idFiles" accept="image/*,application/pdf" multiple>
@@ -280,6 +287,9 @@
     check('idType', v('idType') !== '', 'Select an ID type.');
     check('paymentMode', PAYMENT_MODES.indexOf(v('paymentMode')) !== -1, 'Select a payment mode.');
 
+    const amt = parseFloat(v('amountPaid'));
+    check('amountPaid', v('amountPaid') !== '' && isFinite(amt) && amt >= 0 && amt <= 1000000, 'Enter the amount paid (0 or more).');
+
     const files = selectedFiles;
     let fileMsg = '';
     if (files.length === 0) fileMsg = 'Please upload your ID proof.';
@@ -352,6 +362,7 @@
         idType: g('idType'),
         roomNumber: g('roomNumber'), guests: g('guests'),
         paymentMode: g('paymentMode'),
+        amountPaid: g('amountPaid'),
         files: files
       };
 
