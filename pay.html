@@ -5,46 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pay Lyra Residency</title>
 <style>
-  :root { --brand:#0b5fff; }
+  :root { --brand:#0b3d91; --accent:#0b5fff; --ok:#12805c; }
   * { box-sizing:border-box; }
-  body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:#f3f5f9; display:flex; min-height:100vh; align-items:center; justify-content:center; padding:16px; }
-  .card { background:#fff; width:100%; max-width:400px; border-radius:16px; padding:32px 24px; box-shadow:0 6px 24px rgba(0,0,0,.08); text-align:center; }
-  h1 { font-size:22px; margin:0 0 6px; }
-  .sub { color:#667; font-size:14px; margin-bottom:24px; }
-  button { width:100%; padding:15px; font-size:17px; font-weight:600; color:#fff; background:var(--brand); border:0; border-radius:12px; cursor:pointer; }
-  .upi { margin-top:22px; font-size:12px; color:#667; word-break:break-all; }
-  .copy { background:none; color:var(--brand); border:0; width:auto; margin:6px 0 0; padding:0; font-size:13px; font-weight:400; text-decoration:underline; }
-  .note { font-size:12px; color:#889; margin-top:14px; }
+  body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:#f3f5f9; color:#1a1f36; padding:16px; }
+  .wrap { max-width:440px; margin:0 auto; }
+  .card { background:#fff; border-radius:16px; padding:24px 20px; box-shadow:0 6px 24px rgba(0,0,0,.08); margin-bottom:16px; }
+  h1 { font-size:22px; margin:0 0 4px; text-align:center; }
+  .sub { color:#667; font-size:14px; text-align:center; margin-bottom:4px; }
+  h2 { font-size:15px; margin:0 0 12px; color:var(--brand); }
+  .idbox { background:#f3f6ff; border:1px dashed #9db5f0; border-radius:12px; padding:14px; font-size:15px; font-weight:600; word-break:break-all; text-align:center; user-select:all; }
+  button, .btn { display:block; width:100%; margin-top:12px; padding:14px; font-size:16px; font-weight:600; color:#fff; background:var(--accent); border:0; border-radius:12px; cursor:pointer; text-align:center; text-decoration:none; }
+  button.copied { background:var(--ok); }
+  .btn.alt { background:#fff; color:var(--accent); border:1.5px solid var(--accent); }
+  .qr { width:100%; border-radius:12px; border:1px solid #e3e7ef; display:block; }
+  .hint { font-size:13px; color:#667; margin-top:10px; line-height:1.5; }
+  .foot { text-align:center; font-size:12px; color:#889; margin:6px 0 20px; }
 </style>
 </head>
 <body>
-<div class="card">
-  <h1>Lyra Residency</h1>
-  <div class="sub">Tap below to pay using any UPI app. You can enter the amount in your UPI app.</div>
+<div class="wrap">
 
-  <button id="payBtn">Pay with UPI app</button>
-
-  <div class="upi">
-    UPI ID: <span id="vpa"></span><br>
-    <button class="copy" id="copyBtn">Copy UPI ID</button>
+  <div class="card">
+    <h1>Lyra Residency</h1>
+    <div class="sub">Pay securely using any UPI app</div>
   </div>
-  <div class="note">Works with GPay, PhonePe, Paytm, BHIM and other UPI apps on your phone.</div>
+
+  <div class="card">
+    <h2>1. Copy UPI ID</h2>
+    <div class="idbox" id="vpa">SBIBHIM.INSTANT97993724778395884@sbipay</div>
+    <button id="copyBtn">Copy UPI ID</button>
+    <div class="hint">Open GPay, PhonePe, Paytm or any UPI app, choose "Pay to UPI ID", paste this ID and enter the amount.</div>
+  </div>
+
+  <div class="card">
+    <h2>2. Or scan the QR code</h2>
+    <img class="qr" src="sbi-qr.jpg" alt="SBI Payments QR code for Lyra Residency">
+    <a class="btn alt" href="sbi-qr.jpg" download="Lyra-Residency-QR.jpg">Download QR</a>
+    <div class="hint">On the same phone: download or screenshot the QR, then in your UPI app use "Scan QR" and pick it from your gallery.</div>
+  </div>
+
+  <div class="foot">After paying, please send the payment screenshot to us on WhatsApp.</div>
 </div>
 
 <script>
-  const UPI_ID = "SBIBHIM.INSTANT97993724778395884@sbipay";
-  const PAYEE_NAME = "Lyra Residency";
-
-  document.getElementById("vpa").textContent = UPI_ID;
-
-  document.getElementById("payBtn").addEventListener("click", function () {
-    // Exact fields copied from the SBI static QR (GPay accepts these)
-    window.location.href =
-      "upi://pay?pa=" + UPI_ID + "&tn=StaticQR&mode=01&orgid=180080&purpose=00";
-  });
+  var UPI_ID = "SBIBHIM.INSTANT97993724778395884@sbipay";
 
   document.getElementById("copyBtn").addEventListener("click", function () {
-    navigator.clipboard.writeText(UPI_ID).then(() => { this.textContent = "Copied!"; });
+    var btn = this;
+    function done() {
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(function () { btn.textContent = "Copy UPI ID"; btn.classList.remove("copied"); }, 2000);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(UPI_ID).then(done);
+    } else {
+      var t = document.createElement("textarea");
+      t.value = UPI_ID; document.body.appendChild(t); t.select();
+      document.execCommand("copy"); document.body.removeChild(t); done();
+    }
   });
 </script>
 </body>
