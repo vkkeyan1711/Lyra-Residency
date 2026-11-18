@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pay Lyra Residency</title>
+<style>
+  :root { --brand:#0b5fff; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:#f3f5f9; display:flex; min-height:100vh; align-items:center; justify-content:center; padding:16px; }
+  .card { background:#fff; width:100%; max-width:400px; border-radius:16px; padding:32px 24px; box-shadow:0 6px 24px rgba(0,0,0,.08); text-align:center; }
+  h1 { font-size:22px; margin:0 0 6px; }
+  .sub { color:#667; font-size:14px; margin-bottom:24px; }
+  button { width:100%; padding:15px; font-size:17px; font-weight:600; color:#fff; background:var(--brand); border:0; border-radius:12px; cursor:pointer; }
+  .upi { margin-top:22px; font-size:12px; color:#667; word-break:break-all; }
+  .copy { background:none; color:var(--brand); border:0; width:auto; margin:6px 0 0; padding:0; font-size:13px; font-weight:400; text-decoration:underline; }
+  .note { font-size:12px; color:#889; margin-top:14px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Lyra Residency</h1>
+  <div class="sub">Tap below to pay using any UPI app. You can enter the amount in your UPI app.</div>
+
+  <button id="payBtn">Pay with UPI app</button>
+
+  <div class="upi">
+    UPI ID: <span id="vpa"></span><br>
+    <button class="copy" id="copyBtn">Copy UPI ID</button>
+  </div>
+  <div class="note">Works with GPay, PhonePe, Paytm, BHIM and other UPI apps on your phone.</div>
+</div>
+
+<script>
+  const UPI_ID = "SBIBHIM.INSTANT97993724778395884@sbipay";
+  const PAYEE_NAME = "Lyra Residency";
+
+  document.getElementById("vpa").textContent = UPI_ID;
+
+  document.getElementById("payBtn").addEventListener("click", function () {
+    const p = new URLSearchParams({ pa: UPI_ID, pn: PAYEE_NAME, cu: "INR" });
+    window.location.href = "upi://pay?" + p.toString().replace(/\+/g, "%20");
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    navigator.clipboard.writeText(UPI_ID).then(() => { this.textContent = "Copied!"; });
+  });
+</script>
+</body>
+</html>
