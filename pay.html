@@ -38,8 +38,9 @@
   document.getElementById("vpa").textContent = UPI_ID;
 
   document.getElementById("payBtn").addEventListener("click", function () {
-    const p = new URLSearchParams({ pa: UPI_ID, pn: PAYEE_NAME, cu: "INR" });
-    window.location.href = "upi://pay?" + p.toString().replace(/\+/g, "%20");
+    // Exact fields copied from the SBI static QR (GPay accepts these)
+    window.location.href =
+      "upi://pay?pa=" + UPI_ID + "&tn=StaticQR&mode=01&orgid=180080&purpose=00";
   });
 
   document.getElementById("copyBtn").addEventListener("click", function () {
