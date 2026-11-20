@@ -151,7 +151,6 @@ footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); colo
     <div class="brand">Lyra Residency · Front Desk</div>
     <nav aria-label="Sections"><ul>
       <li><a href="#rates">Rate card</a></li>
-      <li><a href="#comics">Comics</a></li>
       <li><a href="#videos">Videos</a></li>
     </ul></nav>
   </div>
@@ -160,9 +159,9 @@ footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); colo
 <main class="wrap">
   <section class="hero">
     <h1>Welcome to the front desk</h1>
-    <p>Read each comic from top to bottom. Every panel shows what to do. Follow the steps in order, just like the receptionist in the comic.</p>
+    <p>Learn the room rates and the payment rule. Then watch every training video before you work a shift.</p>
     <div class="steps" aria-label="How to use this page">
-      <span>1. Learn the rates</span><span>2. Read the comics</span><span>3. Watch the videos</span>
+      <span>1. Learn the rates</span><span>2. Watch the videos</span>
     </div>
   </section>
 
@@ -174,12 +173,6 @@ footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); colo
     <div class="ask-first payfirst">Very important: no key without full payment first. Say: "Sir, it is our hotel policy, for every guest."</div>
   </section>
 
-  <section id="comics" class="case" style="margin-top:0">
-    <h2 class="sec">Training comics</h2>
-    <p class="sec-sub">Ten daily situations at the desk. Tap one to jump to it.</p>
-    <ol class="index" id="index"></ol>
-    <div id="cases"></div>
-  </section>
 
   <section id="videos" class="case" style="margin-top:0">
     <h2 class="sec">Training videos</h2>
@@ -204,238 +197,13 @@ const VIDEOS = [
   { title: 'Generator switch on after a power cut', desc: 'Short video: how to start the generator when the power goes.', url: 'https://youtube.com/shorts/OA1LAGtNysQ' },
   { title: 'Lift off on power cut days', desc: 'Short video: how to switch the lift off safely on power cut days.', url: 'https://youtube.com/shorts/k0jszv1NL3g' },
   { title: 'Heat pump, Part 1', desc: 'The first video on the heat pump.', url: 'https://youtu.be/HrtK1Igqvmk' },
-  { title: 'Video 4', desc: 'Coming soon.', url: '' },
-  { title: 'Video 5', desc: 'Coming soon.', url: '' },
-  { title: 'Video 6', desc: 'Coming soon.', url: '' }
+  { title: 'Heat pump, running schedule settings', desc: 'How to set the running schedule of the heat pump.', url: 'https://youtu.be/4UFFXwfM-ek' },
+  { title: 'Heat pump, temperature settings', desc: 'Short video: how to set the heat pump temperature.', url: 'https://youtube.com/shorts/WKHKQofFJEo' },
+  { title: 'Next video', desc: 'Coming soon.', url: '' }
 ];
 
 const rs = n => '₹' + n.toLocaleString('en-IN');
 const INK = 'var(--line)';
-
-/* ---------- characters and scenes ---------- */
-function person(cx, o){
-  const m = o.mood || 'neutral';
-  const brow = (s) => m==='angry' ? `M${cx+s*16} 55 L${cx+s*4} 61`
-                    : m==='worried' ? `M${cx+s*16} 61 L${cx+s*4} 55`
-                    : `M${cx+s*16} 58 L${cx+s*4} 58`;
-  const mouth = m==='happy' ? `M${cx-9} 78 Q${cx} 91 ${cx+9} 78`
-              : m==='angry' ? `M${cx-9} 86 Q${cx} 76 ${cx+9} 86`
-              : m==='worried' ? `M${cx-8} 85 Q${cx} 79 ${cx+8} 85`
-              : `M${cx-7} 83 L${cx+7} 83`;
-  let s = `<path d="M${cx-34} 190 L${cx-34} 122 Q${cx-34} 98 ${cx-14} 96 L${cx+14} 96 Q${cx+34} 98 ${cx+34} 122 L${cx+34} 190 Z" fill="${o.shirt}" stroke="${INK}" stroke-width="2.5"/>`;
-  s += `<rect x="${cx-7}" y="86" width="14" height="14" fill="${o.skin}" stroke="${INK}" stroke-width="2.5"/>`;
-  s += `<circle cx="${cx}" cy="68" r="26" fill="${o.skin}" stroke="${INK}" stroke-width="2.5"/>`;
-  s += `<path d="M${cx-25} 62 Q${cx-27} 36 ${cx} 36 Q${cx+27} 36 ${cx+25} 62 Q${cx+14} 49 ${cx} 49 Q${cx-14} 49 ${cx-25} 62 Z" fill="${o.hair}" stroke="${INK}" stroke-width="2.5"/>`;
-  if (o.cap) s += `<path d="M${cx-27} 54 Q${cx} 26 ${cx+27} 54 Z" fill="#2b2f45" stroke="${INK}" stroke-width="2.5"/><rect x="${cx-30}" y="52" width="60" height="6" rx="3" fill="#2b2f45" stroke="${INK}" stroke-width="2.5"/>`;
-  s += `<circle cx="${cx-10}" cy="67" r="2.8" fill="#15182b"/><circle cx="${cx+10}" cy="67" r="2.8" fill="#15182b"/>`;
-  s += `<path d="${brow(-1)}" stroke="#15182b" stroke-width="3" stroke-linecap="round"/><path d="${brow(1)}" stroke="#15182b" stroke-width="3" stroke-linecap="round"/>`;
-  s += `<path d="${mouth}" fill="none" stroke="#15182b" stroke-width="3" stroke-linecap="round"/>`;
-  if (m==='angry') s += `<path d="M${cx+22} 44 l6 -8 M${cx+26} 50 l9 -4" stroke="${'var(--wrong)'}" stroke-width="3" stroke-linecap="round"/>`;
-  if (o.tag) s += `<rect x="${cx+6}" y="110" width="24" height="12" rx="2" fill="#fff" stroke="${INK}" stroke-width="2"/><rect x="${cx+9}" y="114" width="14" height="2.5" fill="#2748b8"/><rect x="${cx+9}" y="118" width="9" height="2.5" fill="#2748b8"/>`;
-  return s;
-}
-const SKIN = ['#e0ac84','#c68a62','#a8683f','#8d5330'];
-const GUEST_STYLES = {
-  a:{skin:SKIN[1], shirt:'#e07a2f', hair:'#1b1b1b'},
-  b:{skin:SKIN[0], shirt:'#2a9d8f', hair:'#3a2a1a'},
-  c:{skin:SKIN[2], shirt:'#8e5bd0', hair:'#111'},
-  stranger:{skin:SKIN[1], shirt:'#3b3f55', hair:'#111', cap:true}
-};
-const REC = {skin:SKIN[1], shirt:'#2748b8', hair:'#161616', tag:true};
-
-function sceneSvg(kind, g, r, label){
-  let s = `<svg viewBox="0 0 300 190" role="img" aria-label="${label}">`;
-  s += `<rect width="300" height="190" fill="var(--wall)"/><rect y="168" width="300" height="22" fill="var(--floor)"/>`;
-  s += `<rect x="176" y="14" width="106" height="22" rx="4" fill="#2748b8" stroke="${INK}" stroke-width="2.5"/><text x="229" y="30" text-anchor="middle" font-family="Bangers,Impact,sans-serif" font-size="15" letter-spacing="1.5" fill="#fff">RECEPTION</text>`;
-  if (kind==='desk'){
-    s += person(62, g);
-  } else {
-    s += `<g transform="translate(40 62)"><rect width="44" height="76" rx="9" fill="#2b2f45" stroke="${INK}" stroke-width="2.5"/><rect x="5" y="9" width="34" height="52" rx="3" fill="#bfe3ff"/><circle cx="22" cy="68" r="3" fill="#8b90a8"/><text x="22" y="40" text-anchor="middle" font-family="Bangers,Impact,sans-serif" font-size="12" fill="#2748b8">CALL</text></g>`;
-    s += `<path d="M92 80 q10 10 0 20 M100 74 q16 16 0 32" fill="none" stroke="#2748b8" stroke-width="3" stroke-linecap="round"/>`;
-  }
-  s += person(228, {...r, ...REC, mood: r.mood});
-  if (kind==='phone') s += `<rect x="184" y="62" width="10" height="30" rx="5" fill="#2b2f45" stroke="${INK}" stroke-width="2.5" transform="rotate(-8 189 77)"/>`;
-  s += `<rect x="150" y="138" width="150" height="52" fill="var(--wood)" stroke="${INK}" stroke-width="2.5"/><rect x="146" y="132" width="154" height="9" fill="var(--wood)" stroke="${INK}" stroke-width="2.5"/>`;
-  s += `<path d="M166 132 q9 -14 18 0 Z" fill="#ffc533" stroke="${INK}" stroke-width="2.5"/>`;
-  return s + `</svg>`;
-}
-
-/* ---------- panel + scenario rendering ---------- */
-function panel(p, kind, idx){
-  const type = p.type;
-  const stamp = type==='wrong' ? `<span class="stamp wrong">WRONG</span>` : `<span class="stamp right">STEP ${idx}</span>`;
-  const bubbles = (p.say||[]).map(b =>
-    `<div class="bubble ${b.by}"><span class="who">${b.by==='g' ? (p.guestName||'Guest') : 'Receptionist'}</span>${b.t}</div>`).join('');
-  const g = {...GUEST_STYLES[p.guest||'a'], mood: p.gm||'neutral'};
-  const r = {mood: p.rm||'neutral'};
-  return `<figure class="panel ${type}" style="margin:0">${stamp}
-    <div class="cap">${p.cap}</div>
-    <div class="talk">${bubbles}</div>
-    ${sceneSvg(p.kind||kind, g, r, p.cap)}
-  </figure>`;
-}
-
-const S = [
- { id:'payment-first', title:'No key without full payment', kind:'desk',
-   situation:'A guest says: "Give me the key first. I will pay later."',
-   right:[
-    {cap:'Greet him. Start the check-in.', guest:'c', gm:'neutral', rm:'happy', say:[{by:'g',t:'Give me the key first. I will pay tomorrow.'},{by:'r',t:'Welcome, sir. Let me complete your check-in.'}]},
-    {cap:'Say the policy. Stay polite.', guest:'c', gm:'neutral', rm:'happy', say:[{by:'r',t:'Sir, full payment first, then the key. It is our hotel policy, for every guest.'}]},
-    {cap:'If he asks why, say it is the management\'s order.', guest:'c', gm:'angry', rm:'happy', say:[{by:'g',t:'Why? Don\'t you trust me?'},{by:'r',t:'It is not about you, sir. It is the management\'s order for everybody. We must follow the rule.'}]},
-    {cap:'Payment first. Then the key.', guest:'c', gm:'happy', rm:'happy', say:[{by:'g',t:'OK, fine. Here is the payment.'},{by:'r',t:'Thank you, sir. Here is your key. Enjoy your stay.'}]}
-   ],
-   remember:[
-    'Never give a key without full payment first. No exceptions.',
-    'Say it politely: "Sir, it is our hotel policy. It is for every guest."',
-    'Add: "It is the management\'s order, and we must follow it."',
-    'Do not say "I don\'t trust you". Do not argue. If he keeps insisting, call the manager.'],
-   q:'A regular guest says "You know me. Give the key, I will pay later." Do you give it?',
-   a:'No. Say: "Sir, it is our hotel policy, for everybody. It is the management\'s order." If he still insists, call the manager.' },
-
- { id:'rate-enquiry', title:'Rate enquiry on the phone', kind:'phone',
-   situation:'A caller asks: "What is the AC room rate?"',
-   right:[
-    {cap:'Greet. Do not say a rate yet.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'g',t:'What is the AC room rate?'},{by:'r',t:'Good morning, Lyra Residency. Happy to help, sir.'}]},
-    {cap:'Ask the dates.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'r',t:'For which dates do you need the room?'},{by:'g',t:'25 and 26 December.'}]},
-    {cap:'Ask the number of rooms and the reason.', guest:'a', gm:'happy', rm:'happy', say:[{by:'r',t:'How many rooms? Is it for a marriage or a single stay?'},{by:'g',t:'10 rooms. My son\'s marriage.'}]},
-    {cap:'Now give the right rate.', guest:'a', gm:'happy', rm:'happy', say:[{by:'r',t:`For marriage groups: AC ${rs(RATES.marriageAC)}, non-AC ${rs(RATES.marriageNonAC)}. Extra person ${rs(RATES.extraPerson)}.`},{by:'g',t:'Good. Please hold the rooms.'}]}
-   ],
-   remember:[
-    'Never say the rate first. Ask dates, number of rooms, and the reason.',
-    `Marriage or bulk: AC ${rs(RATES.marriageAC)}, non-AC ${rs(RATES.marriageNonAC)} per room.`,
-    `Single stay: AC ${rs(RATES.singleAC)}, non-AC ${rs(RATES.singleNonAC)}. Extra person ${rs(RATES.extraPerson)}.`,
-    'Write down the caller\'s name and number before you end the call.'],
-   q:'A caller says only "AC room rate?" What is your first reply?',
-   a:'Greet him, then ask the dates, how many rooms, and the reason. Do not say any rate yet.' },
-
- { id:'marriage-group', title:'Marriage or group enquiry', kind:'phone',
-   situation:'A family wants many rooms for a wedding.',
-   right:[
-    {cap:'Be warm. Take details.', guest:'b', gm:'happy', rm:'happy', say:[{by:'g',t:'We need rooms for a family wedding.'},{by:'r',t:'Congratulations, sir! May I take a few details?'}]},
-    {cap:'Dates, rooms, guests.', guest:'b', gm:'happy', rm:'happy', say:[{by:'r',t:'Which dates? How many rooms? How many guests?'},{by:'g',t:'3 days, 12 rooms, about 30 people.'}]},
-    {cap:'Ask about parking and the AC mix.', guest:'b', gm:'happy', rm:'happy', say:[{by:'r',t:'How many AC rooms and how many non-AC? Do you need parking?'},{by:'g',t:'8 AC, 4 non-AC. 6 cars.'}]},
-    {cap:'Give the group rate. Promise a call back.', guest:'b', gm:'happy', rm:'happy', say:[{by:'r',t:`AC ${rs(RATES.marriageAC)}, non-AC ${rs(RATES.marriageNonAC)} per room. Extra person ${rs(RATES.extraPerson)}. The manager will call you today.`}]}
-   ],
-   remember:[
-    'A group booking is big money. Take every detail.',
-    'Ask: dates, number of rooms, number of guests, AC or non-AC, parking.',
-    'Write the name and phone number. Tell the manager the same day.',
-    'Say the manager will call back. Do not promise the advance or the discount yourself.'],
-   q:'The caller wants to "just come and see" the hotel. Do you quote nothing?',
-   a:'No. Take the details first, quote the group rate, and invite him to visit after that.' },
-
- { id:'walk-in', title:'Walk-in guest, no booking', kind:'desk',
-   situation:'A tired guest comes in with a bag. He has no booking.',
-   right:[
-    {cap:'Stand up. Smile. Welcome him.', guest:'c', gm:'neutral', rm:'happy', say:[{by:'r',t:'Welcome to Lyra Residency, sir. How can I help you?'},{by:'g',t:'I need a room for tonight.'}]},
-    {cap:'Ask nights and number of guests.', guest:'c', gm:'neutral', rm:'happy', say:[{by:'r',t:'How many nights? How many guests?'},{by:'g',t:'2 nights, 2 persons.'}]},
-    {cap:'Ask AC or non-AC. Check the rooms.', guest:'c', gm:'happy', rm:'happy', say:[{by:'r',t:'AC or non-AC, sir? Let me check which rooms are free.'}]},
-    {cap:'Quote. Ask for payment and ID.', guest:'c', gm:'happy', rm:'happy', say:[{by:'r',t:`Single AC is ${rs(RATES.singleAC)}, non-AC ${rs(RATES.singleNonAC)}. Full payment first, then your ID proof for the entry, please.`},{by:'g',t:'Sure.'}]}
-   ],
-   remember:[
-    'Stand, smile and greet within 5 seconds.',
-    'Ask nights, number of guests, AC or non-AC. Then quote.',
-    'Full payment and ID proof for every guest, before the key. Say it is the rule for everyone.',
-    'Tell him about the lift, the checkout time and the breakfast before he goes up.'],
-   q:'The guest is tired and says "just give me the key". Do you skip the ID?',
-   a:'No. ID is for every guest. Say politely: "It is our rule for everyone, sir. It takes one minute."' },
-
- { id:'discount', title:'Guest asks for a discount', kind:'desk',
-   situation:'A guest says the rate is too high and asks you to reduce it.',
-   right:[
-    {cap:'Stay polite. Do not argue.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'g',t:'Can you reduce the rate?'},{by:'r',t:'I understand, sir. Let me see how I can help.'}]},
-    {cap:'Say the rate. Say you cannot change it.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'r',t:`Single AC room is ${rs(RATES.singleAC)}, sir. I cannot change the rate myself.`}]},
-    {cap:'Offer another choice.', guest:'a', gm:'happy', rm:'happy', say:[{by:'r',t:`A non-AC room is ${rs(RATES.singleNonAC)}. Would that suit you?`},{by:'g',t:'Hmm, let me think.'}]},
-    {cap:'Send it to the manager.', guest:'a', gm:'happy', rm:'happy', say:[{by:'r',t:'If you want a special rate, I will ask the manager and call you back in 10 minutes.'}]}
-   ],
-   remember:[
-    'You never give a discount on your own. Not even a small one.',
-    'Offer a different room type first.',
-    'For a special rate, take the name and number. The manager decides and calls.',
-    'Stay friendly. A guest who feels respected often books anyway.'],
-   q:'The guest says "Other hotels are cheaper." What do you say?',
-   a:'"I understand, sir. Let me tell you what the room includes." Then offer the non-AC option or ask the manager. Never reduce the rate yourself.' },
-
- { id:'fully-booked', title:'All rooms are full', kind:'desk',
-   situation:'A guest arrives and there is no room tonight.',
-   right:[
-    {cap:'Say sorry. Be clear.', guest:'b', gm:'worried', rm:'worried', say:[{by:'r',t:'I am sorry sir, all rooms are full for tonight.'}]},
-    {cap:'Offer to call him if a room opens.', guest:'b', gm:'neutral', rm:'happy', say:[{by:'r',t:'May I take your name and number? If a room is free, I will call you first.'}]},
-    {cap:'Offer another date.', guest:'b', gm:'happy', rm:'happy', say:[{by:'r',t:'I can also book you for tomorrow night. Which dates suit you?'},{by:'g',t:'Tomorrow is fine.'}]},
-    {cap:'Write it in the waiting list book.', guest:'b', gm:'happy', rm:'happy', say:[{by:'g',t:'Thank you for helping me.'},{by:'r',t:'My pleasure, sir. See you tomorrow.'}]}
-   ],
-   remember:[
-    'Never only say "No room". Always offer the next step.',
-    'Take name, number and dates. Write them in the waiting list book.',
-    'Call him first if a room becomes free.',
-    'Tell the manager who asked and for which dates.'],
-   q:'A guest asks for a room and all 22 rooms are full. What are your 3 actions?',
-   a:'1) Say sorry clearly. 2) Take name, number and dates for the waiting list. 3) Offer another date.' },
-
- { id:'room-complaint', title:'AC not working in the room', kind:'desk',
-   situation:'A guest comes down upset. The AC in his room is not cooling.',
-   right:[
-    {cap:'Say sorry first. Do not argue.', guest:'a', gm:'angry', rm:'worried', say:[{by:'g',t:'The AC in my room is not cooling!'},{by:'r',t:'I am very sorry, sir. I will fix it now.'}]},
-    {cap:'Call maintenance. Give a time.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'r',t:'The maintenance staff are going to your room now. They will be there in 10 minutes.'}]},
-    {cap:'Keep a plan B ready.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'r',t:'If it cannot be fixed, I will move you to another AC room.'},{by:'g',t:'OK. Thank you.'}]},
-    {cap:'Follow up after 30 minutes.', guest:'a', gm:'happy', rm:'happy', say:[{by:'r',t:'Sir, is the AC working well now?'},{by:'g',t:'Yes, it is cool now. Thanks.'}]}
-   ],
-   remember:[
-    'Say sorry. Do not say "not my department".',
-    'Act within 10 minutes. Tell the guest what you are doing.',
-    'Have a spare room plan. Ask the manager if you must move him.',
-    'Call after 30 minutes to check. This makes angry guests loyal.'],
-   q:'The guest says "I want my money back." What do you do?',
-   a:'Do not promise or refuse. Stay calm, say you will call the manager now, and keep fixing the problem while you wait.' },
-
- { id:'room-number', title:'Stranger asks for a guest\'s room number', kind:'desk',
-   situation:'A man you do not know asks which room Mr. Suresh is in.',
-   right:[
-    {cap:'Same question. Stay calm.', guest:'stranger', gm:'neutral', rm:'happy', say:[{by:'g',t:'Which room is Mr. Suresh in?'}]},
-    {cap:'Say no, politely. Give the reason.', guest:'stranger', gm:'neutral', rm:'happy', say:[{by:'r',t:'Sorry sir, I cannot share room numbers. It is for our guests\' safety.'}]},
-    {cap:'Offer a safe way.', guest:'stranger', gm:'neutral', rm:'happy', say:[{by:'r',t:'Please sit here. I will call Mr. Suresh and tell him you are here.'}]},
-    {cap:'The guest decides who comes up.', guest:'stranger', gm:'happy', rm:'happy', say:[{by:'g',t:'Thank you, I understand.'}]}
-   ],
-   remember:[
-    'Never tell a room number or a guest name to anyone.',
-    'Not to a friend, not to a relative, not to the police without the manager.',
-    'Call the guest and let him decide.',
-    'Say "It is our rule for everyone", so nobody feels doubted.'],
-   q:'The visitor says "I am his brother." Do you give the room number?',
-   a:'No. Call the guest. If the guest agrees, he will come down or tell you to send the visitor up.' },
-
- { id:'angry-guest', title:'Angry or drunk guest', kind:'desk',
-   situation:'A guest comes in shouting at the desk. Other guests are in the lobby.',
-   right:[
-    {cap:'Stay calm. Lower your voice.', guest:'c', gm:'angry', rm:'happy', say:[{by:'g',t:'I want my room NOW!'},{by:'r',t:'Sir, please come this side. I will help you.'}]},
-    {cap:'Move him away from other guests.', guest:'c', gm:'neutral', rm:'happy', say:[{by:'r',t:'Please sit here, sir. Would you like some water?'}]},
-    {cap:'Call the manager.', guest:'c', gm:'neutral', rm:'worried', say:[{by:'r',t:'Manager sir, a guest needs help at reception.'}]},
-    {cap:'Do not handle it alone.', guest:'c', gm:'neutral', rm:'happy', say:[{by:'r',t:'The manager is coming, sir. Please wait here.'}]}
-   ],
-   remember:[
-    'Speak slowly and softly. Never argue. Never touch him.',
-    'Take him away from the other guests, and sit him down if you can.',
-    'Call the manager at once. If he threatens anyone, call security.',
-    'Write down what happened and the time. Tell the manager at shift end.'],
-   q:'The guest is shouting and swearing at you. Do you answer him back?',
-   a:'No. Stay calm, move him away from the lobby, and call the manager. Your job is to keep everyone safe.' },
-
- { id:'early-late', title:'Early check-in and late checkout', kind:'desk',
-   situation:'A guest wants to come early, or stay longer on the last day.',
-   right:[
-    {cap:'Check the room first. Do not promise.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'g',t:'Can I check in early tomorrow morning?'},{by:'r',t:'Let me check the room status, sir. One minute.'}]},
-    {cap:'Early check-in has a charge.', guest:'a', gm:'happy', rm:'happy', say:[{by:'r',t:`The room is free, sir. Early check-in is ${rs(RATES.earlyCheckIn)}. Shall I note it?`},{by:'g',t:'Yes, please note.'}]},
-    {cap:'Late checkout: check the next booking first.', guest:'a', gm:'neutral', rm:'happy', say:[{by:'g',t:'Can I stay two hours longer on my last day?'},{by:'r',t:`I will check the next booking, sir. Late checkout is ${rs(RATES.lateCheckoutPerHour)} for every hour.`}]},
-    {cap:'Count the hours. Add it to the bill.', guest:'a', gm:'happy', rm:'happy', say:[{by:'r',t:`Two extra hours is ${rs(RATES.lateCheckoutPerHour*2)}, sir. I will add it to your bill.`},{by:'g',t:'OK, thank you.'}]}
-   ],
-   remember:[
-    `Early check-in: ${rs(RATES.earlyCheckIn)}. Say yes only after you check that the room is free and ready.`,
-    `Late checkout: ${rs(RATES.lateCheckoutPerHour)} for every hour. Check the next booking before you say yes.`,
-    'Say the charge clearly before the guest agrees. Write it on the bill.',
-    'Never promise on the phone before you check the room.'],
-   q:'A guest wants to leave 3 hours after checkout time. What is the late checkout charge?',
-   a:`${rs(RATES.lateCheckoutPerHour)} x 3 hours = ${rs(RATES.lateCheckoutPerHour*3)}. First check that no new guest is waiting for the room.` }
-];
 
 /* ---------- build page ---------- */
 document.getElementById('rate-cards').innerHTML = `
@@ -447,21 +215,6 @@ document.getElementById('rate-cards').innerHTML = `
     <dl><dt>Per person</dt><dd>+${rs(RATES.extraPerson)}</dd></dl></div>
   <div class="rate"><h3>Early and late</h3><p class="when">Extra time charges</p>
     <dl><dt>Early check-in</dt><dd>${rs(RATES.earlyCheckIn)}</dd><dt>Late checkout, every hour</dt><dd>${rs(RATES.lateCheckoutPerHour)}</dd></dl></div>`;
-
-document.getElementById('index').innerHTML = S.map((c,i) =>
-  `<li><a href="#${c.id}"><b>${i+1}</b><span>${c.title}</span></a></li>`).join('');
-
-document.getElementById('cases').innerHTML = S.map((c,i) => `
-  <article class="case" id="${c.id}">
-    <div class="case-head"><div class="case-num">${i+1}</div>
-      <div><h2>${c.title}</h2><p class="situation">${c.situation}</p></div></div>
-    <div class="band right"><i>Right way</i><span></span></div>
-    <div class="panels">${c.right.map((p,j) => panel({...p,type:'right'}, c.kind, j+1)).join('')}</div>
-    <div class="after">
-      <div class="remember"><h3>Remember</h3><ul>${c.remember.map(x=>`<li>${x}</li>`).join('')}</ul></div>
-      <details class="check"><summary><b>Test yourself</b>${c.q}</summary><p>${c.a}</p></details>
-    </div>
-  </article>`).join('');
 
 const play = '<svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="4"/><path d="M26 20 L46 32 L26 44 Z" fill="currentColor"/></svg>';
 document.getElementById('video-list').innerHTML = VIDEOS.map((v,i) => {
