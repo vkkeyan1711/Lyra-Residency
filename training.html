@@ -142,6 +142,13 @@ details.check p{margin:10px 0 0; padding:10px 12px; background:var(--sun); color
 .btn:hover{transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--line)}
 .pill{margin-top:auto; align-self:flex-start; font-weight:600; font-size:.85rem; padding:5px 12px; border:2.5px dashed var(--line); border-radius:999px; color:var(--muted)}
 
+/* training points */
+.points{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px}
+.point{background:var(--panel); border:3px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; min-width:0; box-shadow:5px 5px 0 var(--line)}
+.point .tag{align-self:flex-start; font-family:var(--f-display); letter-spacing:.06em; font-size:1.05rem; background:var(--blue); color:var(--on-blue); padding:2px 12px; border-radius:6px; border:2.5px solid var(--line)}
+.point h3{font-size:1.7rem}
+.point p{margin:0; max-width:62ch}
+.point .rem{margin-top:auto; background:var(--sun); color:var(--on-sun); border:2.5px solid var(--line); border-radius:8px; padding:10px 12px; font-weight:600}
 footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); color:var(--muted); font-size:.92rem}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.index a:hover,.btn:hover{transform:none}}
 </style>
@@ -152,6 +159,7 @@ footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); colo
     <nav aria-label="Sections"><ul>
       <li><a href="#rates">Rate card</a></li>
       <li><a href="#videos">Videos</a></li>
+      <li><a href="#training">Training</a></li>
     </ul></nav>
   </div>
 </header>
@@ -161,7 +169,7 @@ footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); colo
     <h1>Welcome to the front desk</h1>
     <p>Learn the room rates and the payment rule. Then watch every training video before you work a shift.</p>
     <div class="steps" aria-label="How to use this page">
-      <span>1. Learn the rates</span><span>2. Watch the videos</span>
+      <span>1. Learn the rates</span><span>2. Watch the videos</span><span>3. Read the training points</span>
     </div>
   </section>
 
@@ -178,6 +186,35 @@ footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); colo
     <h2 class="sec">Training videos</h2>
     <p class="sec-sub">Watch these before you work a night shift. Each video opens in a new tab.</p>
     <div class="videos" id="video-list"></div>
+  </section>
+
+  <section id="training" class="case" style="margin-top:0">
+    <h2 class="sec">Receptionist training</h2>
+    <p class="sec-sub">Read each point. Follow it on every call and every walk-in.</p>
+    <div class="points">
+      <article class="point">
+        <span class="tag">Training 01</span>
+        <h3>📞 Handling room price enquiries</h3>
+        <p>Whenever a customer calls for room rates, first greet them politely. Ask when they need the room and how many rooms they require. Also clarify whether it is a marriage/group booking or an individual booking.</p>
+        <p>For marriage bookings, refer to the approved rate card before quoting the price.</p>
+        <div class="rem">Remember: Understand the customer's requirement first. Don't rush to quote a price!</div>
+      </article>
+      <article class="point">
+        <span class="tag">Training 02</span>
+        <h3>💰 Handling price bargaining</h3>
+        <p>Our objective is to maximise occupancy, not to lose customers over small price differences. If a customer bargains for an AC room, try your best to accommodate them. If necessary, call management and get approval for a lower price.</p>
+        <p>Even during late-night enquiries, if rooms are available, reasonable price flexibility is allowed.</p>
+        <div class="rem">Remember: Never lose a genuine booking opportunity without trying!</div>
+      </article>
+      <article class="point">
+        <span class="tag">Training 03</span>
+        <h3>⭐ Getting Google reviews</h3>
+        <p>Our business depends heavily on Google reviews. Every satisfied guest is a potential positive review.</p>
+        <p>Whenever a guest appreciates our service, politely request them to share their experience on Google. Make it easy by showing them the Google Review QR code.</p>
+        <p>Never force or repeatedly ask guests for reviews. Always provide good service first.</p>
+        <div class="rem">Remember: Today's happy guest can bring tomorrow's customer through a Google review!</div>
+      </article>
+    </div>
   </section>
 
   <footer>If you are not sure what to do, do not guess. Ask the manager. Lyra Residency, Coimbatore.</footer>
