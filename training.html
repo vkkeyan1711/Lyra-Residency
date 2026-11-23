@@ -1,12 +1,12 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lyra Front Desk Training</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Inter:wght@400;600&display=swap">
 <style>
-/* Layout: sticky nav, hero, rate card, scenario index, one comic strip per scenario (wrong row, right 2x2 grid), video cards.
-   Comic look: thick ink borders, halftone dots, speech bubbles. Wall/floor tokens drive the scene backgrounds. */
 :root{
   --paper:#eef1f7; --panel:#ffffff; --fg:#15182b; --muted:#4f566e; --line:#15182b;
   --blue:#2748b8; --on-blue:#ffffff; --sun:#ffc533; --on-sun:#15182b;
@@ -16,6 +16,7 @@
   --f-display:'Bangers','Impact','Arial Narrow',sans-serif;
   --f-bubble:'Comic Neue','Comic Sans MS','Chalkboard SE',sans-serif;
   --f-ui:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -35,10 +36,12 @@
   --bubble-bg:#f3f4fa; --bubble-fg:#15182b; --dot:rgba(111,140,255,.14);
   color-scheme:dark;
 }
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+img{max-width:100%}
+[hidden]:not([hidden=until-found i]){display:none!important}
 body{
-  background:var(--paper); color:var(--fg); font-family:var(--f-ui); font-size:16px; line-height:1.55;
+  margin:0; background:var(--paper); color:var(--fg); font-family:var(--f-ui); font-size:16px; line-height:1.55;
   padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px));
   padding-block:0 48px;
 }
@@ -47,8 +50,6 @@ body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-in
 h1,h2,h3{font-family:var(--f-display); font-weight:400; letter-spacing:.03em; text-wrap:balance; margin:0; line-height:1.05}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--sun); outline-offset:2px}
-
-/* nav */
 .nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--blue); color:var(--on-blue);
   margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))); padding-inline:max(16px,env(safe-area-inset-left,0px));
   border-bottom:3px solid var(--line)}
@@ -57,8 +58,6 @@ a{color:inherit}
 .nav ul{display:flex; gap:6px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
 .nav a{display:block; text-decoration:none; font-weight:600; font-size:.9rem; padding:6px 12px; border-radius:6px}
 .nav a:hover{background:rgba(255,255,255,.18)}
-
-/* hero */
 .hero{margin-top:28px; background:var(--sun); color:var(--on-sun); border:3px solid var(--line); border-radius:14px;
   box-shadow:6px 6px 0 var(--line); padding:28px clamp(18px,4vw,40px);
   background-image:radial-gradient(rgba(21,24,43,.16) 1.3px,transparent 1.6px); background-size:11px 11px}
@@ -66,11 +65,8 @@ a{color:inherit}
 .hero p{max-width:60ch; margin:12px 0 0; font-size:1.08rem; font-weight:600}
 .steps{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
 .steps span{background:var(--panel); color:var(--fg); border:2.5px solid var(--line); border-radius:8px; padding:6px 12px; font-weight:600; font-size:.92rem}
-
 h2.sec{font-size:clamp(1.9rem,5vw,2.6rem); margin:52px 0 6px}
 .sec-sub{color:var(--muted); margin:0 0 18px; max-width:62ch}
-
-/* rate card */
 .rates{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
 .rate{background:var(--panel); border:3px solid var(--line); border-radius:12px; padding:16px 18px; min-width:0}
 .rate h3{font-size:1.35rem; color:var(--blue)}
@@ -80,56 +76,8 @@ h2.sec{font-size:clamp(1.9rem,5vw,2.6rem); margin:52px 0 6px}
 .rate dd{margin:0; font-family:var(--f-display); font-size:1.7rem; letter-spacing:.03em; font-variant-numeric:tabular-nums; text-align:right}
 .rate.extra dd{color:var(--wrong)}
 .ask-first{margin-top:14px; border:3px dashed var(--line); border-radius:12px; padding:12px 16px; background:var(--panel); font-weight:600}
-
 .payfirst{border:3px solid var(--wrong)}
-/* index */
-.index{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; list-style:none; padding:0; margin:0}
-.index a{display:flex; gap:12px; align-items:center; text-decoration:none; background:var(--panel); border:2.5px solid var(--line);
-  border-radius:10px; padding:10px 12px; font-weight:600; min-width:0}
-.index a:hover{box-shadow:4px 4px 0 var(--line); transform:translate(-1px,-1px)}
-.index b{font-family:var(--f-display); font-weight:400; font-size:1.4rem; background:var(--blue); color:var(--on-blue); width:36px; height:36px;
-  display:grid; place-items:center; border-radius:50%; flex:none}
-
-/* scenario */
 .case{margin-top:56px; scroll-margin-top:84px}
-.case-head{display:flex; gap:14px; align-items:flex-start}
-.case-num{font-family:var(--f-display); font-size:2.2rem; background:var(--blue); color:var(--on-blue); width:58px; height:58px; display:grid; place-items:center;
-  border:3px solid var(--line); border-radius:12px; flex:none; box-shadow:3px 3px 0 var(--line)}
-.case-head h2{font-size:clamp(1.8rem,5vw,2.5rem)}
-.situation{margin:4px 0 0; color:var(--muted)}
-.band{display:flex; align-items:center; gap:10px; margin:22px 0 12px; font-family:var(--f-display); font-size:1.5rem; letter-spacing:.05em}
-.band i{font-style:normal; color:var(--on-status); padding:2px 14px; border-radius:6px; border:2.5px solid var(--line)}
-.band.wrong i{background:var(--wrong)} .band.right i{background:var(--right)}
-.band span{flex:1; height:3px; background:var(--line); opacity:.35}
-.panels{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
-@media (max-width:640px){.panels{grid-template-columns:minmax(0,1fr)}}
-
-.panel{position:relative; background:var(--panel); border:3px solid var(--line); border-radius:6px; box-shadow:5px 5px 0 var(--line); display:flex; flex-direction:column; min-width:0}
-.panel.wrong{border-color:var(--wrong); box-shadow:5px 5px 0 var(--wrong)}
-.panel.right{border-color:var(--right); box-shadow:5px 5px 0 var(--right)}
-.cap{background:var(--sun); color:var(--on-sun); font-weight:600; font-size:.85rem; padding:6px 12px; border-bottom:3px solid var(--line)}
-.talk{display:flex; flex-direction:column; gap:12px; padding:14px 14px 10px; min-height:112px; justify-content:flex-start}
-.bubble{position:relative; max-width:86%; background:var(--bubble-bg); color:var(--bubble-fg); border:2.5px solid #15182b; border-radius:18px;
-  padding:8px 13px; font-family:var(--f-bubble); font-weight:700; font-size:1.02rem; line-height:1.35}
-.bubble.g{align-self:flex-start; border-bottom-left-radius:4px}
-.bubble.r{align-self:flex-end; border-bottom-right-radius:4px; background:#dbe6ff}
-.bubble .who{display:block; font-family:var(--f-ui); font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; opacity:.65}
-.panel svg{display:block; width:100%; height:auto; border-top:3px solid var(--line); margin-top:auto}
-.stamp{position:absolute; top:-12px; right:-8px; z-index:2; font-family:var(--f-display); letter-spacing:.05em; color:var(--on-status);
-  padding:2px 12px; border:2.5px solid var(--line); border-radius:6px; transform:rotate(4deg); font-size:1.15rem}
-.stamp.wrong{background:var(--wrong)} .stamp.right{background:var(--right)}
-
-.after{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:22px}
-.remember{background:var(--panel); border:3px solid var(--line); border-radius:12px; padding:16px 18px; min-width:0}
-.remember h3{font-size:1.5rem; color:var(--blue); margin-bottom:8px}
-.remember ul{margin:0; padding-left:1.2em; display:grid; gap:6px}
-details.check{background:var(--panel); border:3px dashed var(--line); border-radius:12px; padding:14px 18px; min-width:0; align-self:start}
-details.check summary{cursor:pointer; font-weight:600; list-style:none}
-details.check summary::-webkit-details-marker{display:none}
-details.check summary b{font-family:var(--f-display); font-weight:400; font-size:1.3rem; letter-spacing:.04em; color:var(--blue); display:block}
-details.check p{margin:10px 0 0; padding:10px 12px; background:var(--sun); color:var(--on-sun); border:2.5px solid var(--line); border-radius:8px; font-weight:600}
-
-/* videos */
 .videos{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px}
 .video{background:var(--panel); border:3px solid var(--line); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; min-width:0}
 .video .screen{background:var(--blue); color:var(--on-blue); aspect-ratio:16/9; max-width:100%; display:grid; place-items:center; border-bottom:3px solid var(--line);
@@ -141,8 +89,6 @@ details.check p{margin:10px 0 0; padding:10px 12px; background:var(--sun); color
 .btn{margin-top:auto; align-self:flex-start; text-decoration:none; font-weight:600; background:var(--sun); color:var(--on-sun); border:2.5px solid var(--line); border-radius:8px; padding:8px 14px; box-shadow:3px 3px 0 var(--line)}
 .btn:hover{transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--line)}
 .pill{margin-top:auto; align-self:flex-start; font-weight:600; font-size:.85rem; padding:5px 12px; border:2.5px dashed var(--line); border-radius:999px; color:var(--muted)}
-
-/* training points */
 .points{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px}
 .point{background:var(--panel); border:3px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; gap:10px; min-width:0; box-shadow:5px 5px 0 var(--line)}
 .point .tag{align-self:flex-start; font-family:var(--f-display); letter-spacing:.06em; font-size:1.05rem; background:var(--blue); color:var(--on-blue); padding:2px 12px; border-radius:6px; border:2.5px solid var(--line)}
@@ -150,8 +96,9 @@ details.check p{margin:10px 0 0; padding:10px 12px; background:var(--sun); color
 .point p{margin:0; max-width:62ch}
 .point .rem{margin-top:auto; background:var(--sun); color:var(--on-sun); border:2.5px solid var(--line); border-radius:8px; padding:10px 12px; font-weight:600}
 footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); color:var(--muted); font-size:.92rem}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.index a:hover,.btn:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:hover{transform:none}}
 </style>
+</head><body>
 
 <header class="nav">
   <div class="wrap">
@@ -180,7 +127,6 @@ footer{margin-top:64px; padding-top:18px; border-top:3px solid var(--line); colo
     <div class="ask-first">Always ask first: 1. Which dates?  2. How many rooms?  3. Marriage or bulk booking, or a normal single stay?</div>
     <div class="ask-first payfirst">Very important: no key without full payment first. Say: "Sir, it is our hotel policy, for every guest."</div>
   </section>
-
 
   <section id="videos" class="case" style="margin-top:0">
     <h2 class="sec">Training videos</h2>
@@ -237,13 +183,13 @@ const VIDEOS = [
   { title: 'Heat pump, Part 1', desc: 'The first video on the heat pump.', url: 'https://youtu.be/HrtK1Igqvmk' },
   { title: 'Heat pump, running schedule settings', desc: 'How to set the running schedule of the heat pump.', url: 'https://youtu.be/4UFFXwfM-ek' },
   { title: 'Heat pump, temperature settings', desc: 'Short video: how to set the heat pump temperature.', url: 'https://youtube.com/shorts/WKHKQofFJEo' },
+  { title: 'Switch on and off the motor', desc: 'Short video: how to switch the water motor on and off.', url: 'https://youtube.com/shorts/svqWmHX0XL0' },
+  { title: 'Bathroom gate valve', desc: 'How to use the bathroom gate valve.', url: 'https://youtu.be/gQU0YfY8M20' },
   { title: 'Next video', desc: 'Coming soon.', url: '' }
 ];
 
 const rs = n => '₹' + n.toLocaleString('en-IN');
-const INK = 'var(--line)';
 
-/* ---------- build page ---------- */
 document.getElementById('rate-cards').innerHTML = `
   <div class="rate"><h3>Marriage or bulk booking</h3><p class="when">Many rooms for a function</p>
     <dl><dt>AC</dt><dd>${rs(RATES.marriageAC)}</dd><dt>Non-AC</dt><dd>${rs(RATES.marriageNonAC)}</dd></dl></div>
@@ -255,7 +201,7 @@ document.getElementById('rate-cards').innerHTML = `
     <dl><dt>Early check-in</dt><dd>${rs(RATES.earlyCheckIn)}</dd><dt>Late checkout, every hour</dt><dd>${rs(RATES.lateCheckoutPerHour)}</dd></dl></div>`;
 
 const play = '<svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="4"/><path d="M26 20 L46 32 L26 44 Z" fill="currentColor"/></svg>';
-document.getElementById('video-list').innerHTML = VIDEOS.map((v,i) => {
+document.getElementById('video-list').innerHTML = VIDEOS.map(v => {
   const ready = !!v.url;
   return `<article class="video ${ready?'':'soon'}"><div class="screen">${play}</div>
     <div class="body"><h3>${v.title}</h3><p>${v.desc}</p>
@@ -263,5 +209,4 @@ document.getElementById('video-list').innerHTML = VIDEOS.map((v,i) => {
     </div></article>`;
 }).join('');
 </script>
-
 </body></html>
